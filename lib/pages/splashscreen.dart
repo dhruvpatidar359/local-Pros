@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intro_slider/intro_slider.dart';
+
 import 'package:lottie/lottie.dart';
 
 class IntroSliderDemo extends StatefulWidget {
@@ -30,10 +31,9 @@ class _IntroSliderDemoState extends State<IntroSliderDemo> {
         color: Colors.black,
       ),
       onDonePress: () {
-        // Naviaget to the login screen (Google Login);
         // Navigator.push(
         //   context,
-        //   MaterialPageRoute(builder: (context) => Login()),
+        //   MaterialPageRoute(builder: (context) => LoginScreen()),
         // );
       },
     );
