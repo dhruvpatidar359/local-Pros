@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/login.dart';
+import 'package:localpros/pages/services_page.dart';
 
 
 class SignUp extends StatelessWidget {
@@ -121,23 +124,24 @@ class SignUp extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: Colors.orange.shade50,
-                                    content: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(
-                                          color: Colors.orange[900]!,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                                );
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) {
+                            //       return AlertDialog(
+                            //         backgroundColor: Colors.orange.shade50,
+                            //         content: Row(
+                            //           mainAxisAlignment:
+                            //           MainAxisAlignment.center,
+                            //           children: [
+                            //             CircularProgressIndicator(
+                            //               color: Colors.orange[900]!,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       );
+                            //     }
+                            //     );
+                            nextScreenReplace(context, ServicePage());
                           },
                           child: Container(
                             height: 50,
@@ -193,7 +197,7 @@ class SignUp extends StatelessWidget {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-
+                                  nextScreen(context, LoginPage());
                                 },
                                 child: Container(
                                   height: 50,
