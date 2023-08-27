@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 
-class LoginPage extends StatelessWidget {
+class SignUp extends StatelessWidget {
+  SignUp({Key? key}) : super(key: key);
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -29,14 +30,14 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Login",
+                    "Sign Up",
                     style: TextStyle(color: Colors.white, fontSize: 40),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "Welcome Back",
+                    "Welcome",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ],
@@ -98,6 +99,20 @@ class LoginPage extends StatelessWidget {
                                       border: InputBorder.none),
                                 ),
                               ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[200]!))),
+                                child: TextField(
+                                  controller: _nameController,
+                                  decoration: InputDecoration(
+                                      hintText: "Name",
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -132,7 +147,7 @@ class LoginPage extends StatelessWidget {
                                 color: Colors.blue[900]),
                             child: Center(
                               child: Text(
-                                "Login",
+                                "Sign Up",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -187,7 +202,7 @@ class LoginPage extends StatelessWidget {
                                       color: Colors.black),
                                   child: Center(
                                     child: Text(
-                                      "Sign Up",
+                                      "Login",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
