@@ -65,7 +65,7 @@ class _ServicePageState extends State<ServicePage> {
             ],
           ),
           drawer: Drawer(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.blue.shade400,
             child: ListView(
               padding: EdgeInsets.symmetric(vertical: 50),
               children: <Widget>[
