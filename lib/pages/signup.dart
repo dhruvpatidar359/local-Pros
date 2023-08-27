@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/login.dart';
-import 'package:localpros/pages/services_page.dart';
-
 
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
@@ -17,10 +15,10 @@ class SignUp extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-              Colors.blue[900]!,
-              Colors.blue[800]!,
-              Colors.blue[400]!
-            ])),
+          Colors.blue[900]!,
+          Colors.blue[800]!,
+          Colors.blue[400]!
+        ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -124,37 +122,38 @@ class SignUp extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (BuildContext context) {
-                            //       return AlertDialog(
-                            //         backgroundColor: Colors.orange.shade50,
-                            //         content: Row(
-                            //           mainAxisAlignment:
-                            //           MainAxisAlignment.center,
-                            //           children: [
-                            //             CircularProgressIndicator(
-                            //               color: Colors.orange[900]!,
-                            //             ),
-                            //           ],
-                            //         ),
-                            //       );
-                            //     }
-                            //     );
-                            nextScreenReplace(context, ServicePage());
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.orange.shade50,
+                                    content: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(
+                                          color: Colors.orange[900]!,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
                           },
-                          child: Container(
-                            height: 50,
-                            margin: EdgeInsets.symmetric(horizontal: 50),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: Colors.blue[900]),
-                            child: Center(
-                              child: Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              height: 50,
+                              margin: EdgeInsets.symmetric(horizontal: 50),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.blue[900]),
+                              child: Center(
+                                child: Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
@@ -173,31 +172,29 @@ class SignUp extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: GestureDetector(
-                                  onTap: () {
-
-                                  },
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.blue),
-                                    child: Center(
-                                      child: Text(
-                                        "Admin Login",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
+                              onTap: () {},
+                              child: Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.blue),
+                                child: Center(
+                                  child: Text(
+                                    "Google",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                )),
+                                ),
+                              ),
+                            )),
                             SizedBox(
                               width: 30,
                             ),
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  nextScreen(context, LoginPage());
+                                  nextScreenReplace(context, LoginPage());
                                 },
                                 child: Container(
                                   height: 50,
