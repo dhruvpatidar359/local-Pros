@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/email_verification.dart';
+import 'package:localpros/pages/services_page.dart';
 import 'package:localpros/pages/signup.dart';
 import 'package:localpros/pages/verification_code.dart';
 
@@ -124,12 +125,7 @@ class LoginPage extends StatelessWidget {
                             //         ),
                             //       );
                             //     });
-                            if (_emailController.text.contains(".com")) {
-                              nextScreenReplace(
-                                  context, EmailVerificationScreen());
-                            } else {
-                              nextScreenReplace(context, VerificationScreen());
-                            }
+                           nextScreenReplace(context, ServicePage());
                           },
                           child: Container(
                             height: 50,
