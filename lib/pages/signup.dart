@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/email_verification.dart';
 import 'package:localpros/pages/login.dart';
+import 'package:localpros/pages/verification_code.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
@@ -140,7 +142,15 @@ class SignUp extends StatelessWidget {
                                 });
                           },
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              if (_emailController.text.contains(".com")) {
+                                nextScreenReplace(
+                                    context, EmailVerificationScreen());
+                              } else {
+                                nextScreenReplace(
+                                    context, VerificationScreen());
+                              }
+                            },
                             child: Container(
                               height: 50,
                               margin: EdgeInsets.symmetric(horizontal: 50),
