@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/signup.dart';
 
 class LoginPage extends StatelessWidget {
-
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -13,10 +13,10 @@ class LoginPage extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-              Colors.blue[900]!,
-              Colors.blue[800]!,
-              Colors.blue[400]!
-            ])),
+          Colors.blue[900]!,
+          Colors.blue[800]!,
+          Colors.blue[400]!
+        ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                                     backgroundColor: Colors.orange.shade50,
                                     content: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         CircularProgressIndicator(
                                           color: Colors.orange[900]!,
@@ -121,8 +121,7 @@ class LoginPage extends StatelessWidget {
                                       ],
                                     ),
                                   );
-                                }
-                                );
+                                });
                           },
                           child: Container(
                             height: 50,
@@ -154,31 +153,29 @@ class LoginPage extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: GestureDetector(
-                                  onTap: () {
-
-                                  },
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.blue),
-                                    child: Center(
-                                      child: Text(
-                                        "Admin Login",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
+                              onTap: () {},
+                              child: Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.blue),
+                                child: Center(
+                                  child: Text(
+                                    "Google",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                )),
+                                ),
+                              ),
+                            )),
                             SizedBox(
                               width: 30,
                             ),
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-
+                                  nextScreenReplace(context, SignUp());
                                 },
                                 child: Container(
                                   height: 50,
