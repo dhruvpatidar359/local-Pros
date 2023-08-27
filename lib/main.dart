@@ -5,7 +5,7 @@ void main() {
   runApp(MaterialApp(
     home: SafeArea(
       child: Scaffold(
-        body: SignUp(),
+        body: IntroSliderDemo(),
       ),
     ),
   ));
