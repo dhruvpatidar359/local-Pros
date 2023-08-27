@@ -163,25 +163,30 @@ class _ServicePageState extends State<ServicePage> {
               mainAxisSpacing: 20,
               crossAxisSpacing: 20,
               children: <Widget>[
-                Column(
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/ac.png'),
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/ac.png'),
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      'AC Repair',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
+                      Text(
+                        'AC Repair',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Column(
                   children: [
