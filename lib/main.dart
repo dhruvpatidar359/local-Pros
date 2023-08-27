@@ -8,7 +8,7 @@ void main() {
   runApp(MaterialApp(
     home: SafeArea(
       child: Scaffold(
-        body: ServiceMenList(),
+        body: IntroSliderDemo(),
       ),
     ),
   ));
