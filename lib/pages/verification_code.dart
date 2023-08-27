@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/services_page.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
@@ -66,7 +70,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
               height: 20,
             ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  nextScreenReplace(context, ServicePage());
+                },
                 child: Container(
                   decoration: ShapeDecoration(
                       shape: RoundedRectangleBorder(

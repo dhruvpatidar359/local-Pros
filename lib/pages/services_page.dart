@@ -11,11 +11,10 @@ class ServicePage extends StatefulWidget {
 class _ServicePageState extends State<ServicePage> {
   var _currentIndex = 0;
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       home: SafeArea(
+      home: SafeArea(
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blue.shade300,
@@ -74,7 +73,9 @@ class _ServicePageState extends State<ServicePage> {
                   size: 150,
                   color: Colors.black,
                 ),
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 Text(
                   'Username',
                   textAlign: TextAlign.center,
@@ -92,15 +93,19 @@ class _ServicePageState extends State<ServicePage> {
                     fontSize: 20,
                   ),
                 ),
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     onTap: () {},
                     selectedColor: Colors.white,
                     selected: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     leading: Icon(Icons.share),
                     title: Text(
                       'Share with friends',
@@ -113,11 +118,13 @@ class _ServicePageState extends State<ServicePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     onTap: () {},
                     selectedColor: Colors.white,
                     selected: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     leading: Icon(Icons.location_on),
                     title: Text(
                       'Address',
@@ -130,11 +137,13 @@ class _ServicePageState extends State<ServicePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     onTap: () {},
                     selectedColor: Colors.white,
                     selected: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     leading: Icon(Icons.notification_important),
                     title: Text(
                       'Notifications',
@@ -148,7 +157,7 @@ class _ServicePageState extends State<ServicePage> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0 , vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
             child: GridView.count(
               crossAxisCount: 3,
               mainAxisSpacing: 20,
@@ -157,8 +166,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/ac.png'),
@@ -177,8 +186,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/cooler.png'),
@@ -197,8 +206,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/wash.png'),
@@ -217,8 +226,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/socket.png'),
@@ -237,8 +246,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/plug.png'),
@@ -257,8 +266,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/wiring.png'),
@@ -277,8 +286,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/pliers.png'),
@@ -286,7 +295,7 @@ class _ServicePageState extends State<ServicePage> {
                       ),
                     ),
                     Text(
-                      'Connections Repair',
+                      'Connections',
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -297,8 +306,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/ac.png'),
@@ -317,8 +326,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/ac.png'),
@@ -337,8 +346,8 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/ac.png'),

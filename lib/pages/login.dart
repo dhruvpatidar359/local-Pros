@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/email_verification.dart';
 import 'package:localpros/pages/signup.dart';
+import 'package:localpros/pages/verification_code.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
@@ -106,22 +108,28 @@ class LoginPage extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: Colors.orange.shade50,
-                                    content: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(
-                                          color: Colors.orange[900]!,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) {
+                            //       return AlertDialog(
+                            //         backgroundColor: Colors.orange.shade50,
+                            //         content: Row(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.center,
+                            //           children: [
+                            //             CircularProgressIndicator(
+                            //               color: Colors.orange[900]!,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       );
+                            //     });
+                            if (_emailController.text.contains(".com")) {
+                              nextScreenReplace(
+                                  context, EmailVerificationScreen());
+                            } else {
+                              nextScreenReplace(context, VerificationScreen());
+                            }
                           },
                           child: Container(
                             height: 50,
