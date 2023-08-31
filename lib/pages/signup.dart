@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/email_verification.dart';
 import 'package:localpros/pages/login.dart';
+import 'package:localpros/pages/servicemen.dart';
 import 'package:localpros/pages/verification_code.dart';
 
 class SignUp extends StatelessWidget {
@@ -34,7 +36,9 @@ class SignUp extends StatelessWidget {
                 children: [
                   Text(
                     "Sign Up",
-                    style: TextStyle(color: Colors.white, fontSize: 40),
+                    style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 40),
                   ),
                   SizedBox(
                     height: 10,
@@ -168,6 +172,28 @@ class SignUp extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: 10,),
+                        GestureDetector(
+                          onTap: (){
+                            nextScreenReplace(context, ServiceMen());
+                          },
+                          child:  Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(horizontal: 50),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.blue[900]),
+                            child: Center(
+                              child: Text(
+                                "Sign Up As Servicemen",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+
                         SizedBox(
                           height: 50,
                         ),
