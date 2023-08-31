@@ -46,6 +46,7 @@ dependencies:
   random_avatar: ^0.0.8
   salomon_bottom_bar: ^3.3.2
   shared_preferences: ^2.2.0
+  mysql1: ^0.20.0
 
 dev_dependencies:
   flutter_test:
