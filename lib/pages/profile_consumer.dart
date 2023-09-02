@@ -3,7 +3,7 @@ import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/edit_consumer_details.dart';
 
 
-class Profile extends StatelessWidget {
+class ProfileConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,10 +15,10 @@ class Profile extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                const ListTile(
-                  leading: Icon(Icons.arrow_back),
-                  trailing: Icon(Icons.menu),
-                ),
+                // const ListTile(
+                //   leading: Icon(Icons.arrow_back),
+                //   trailing: Icon(Icons.menu),
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [

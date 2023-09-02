@@ -31,31 +31,70 @@ class GeoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      color: Colors.orange.shade50,
-      shadowColor: Colors.orange,
+      color: Colors.blue.shade50,
+      shadowColor: Colors.blue,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              "assets/images/ac.png",
-              height: 60,
-              width: 60,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Deep clean AC split',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                SizedBox(height: 10,),
+                Text(
+                  'Ratings :',
+                ),
+                SizedBox(height: 10,),
+                Text(
+                  'Price: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10,),
+                Text(
+                  'Description:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 5,),
+                Text(
+                  '* Get 2X deeper dust removal with \nfoamjet technology',
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
+                ),
+                Text(
+                  '* Get 2X deeper dust removal with \nfoamjet technology',
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               width: 30,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Clean AC vent',
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/ac_2.webp"),
                 ),
-                Text(
-                  'Price: ',
-                ),
-              ],
-            )
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
           ],
         ),
       ),
