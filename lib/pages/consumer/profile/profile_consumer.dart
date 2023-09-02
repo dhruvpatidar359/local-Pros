@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
-import 'package:localpros/pages/edit_consumer_details.dart';
+
+import 'edit_consumer_details.dart';
 
 
 class ProfileConsumer extends StatelessWidget {

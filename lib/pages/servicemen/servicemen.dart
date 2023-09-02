@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:localpros/navigation.dart';
-import 'package:localpros/pages/service_list.dart';
-import 'package:localpros/pages/service_men_list.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class ServiceMen extends StatefulWidget {

@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:localpros/navigation.dart';
-import 'package:localpros/pages/email_verification.dart';
-import 'package:localpros/pages/login.dart';
-import 'package:localpros/pages/servicemen.dart';
-import 'package:localpros/pages/verification_code.dart';
 
-class SignUp extends StatelessWidget {
-  SignUp({Key? key}) : super(key: key);
+import '../consumer/services/services_page.dart';
+import '../signup/signup.dart';
 
+
+class LoginPage extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -35,16 +32,14 @@ class SignUp extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Sign Up",
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 40),
+                    "Login",
+                    style: TextStyle(color: Colors.white, fontSize: 40),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "Welcome",
+                    "Welcome Back",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ],
@@ -106,20 +101,6 @@ class SignUp extends StatelessWidget {
                                       border: InputBorder.none),
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]!))),
-                                child: TextField(
-                                  controller: _nameController,
-                                  decoration: InputDecoration(
-                                      hintText: "Name",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -128,56 +109,25 @@ class SignUp extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: Colors.orange.shade50,
-                                    content: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(
-                                          color: Colors.orange[900]!,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) {
+                            //       return AlertDialog(
+                            //         backgroundColor: Colors.orange.shade50,
+                            //         content: Row(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.center,
+                            //           children: [
+                            //             CircularProgressIndicator(
+                            //               color: Colors.orange[900]!,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       );
+                            //     });
+                           nextScreenReplace(context, ServicePage());
                           },
-                          child: GestureDetector(
-                            onTap: () {
-                              if (_emailController.text.contains(".com")) {
-                                nextScreenReplace(
-                                    context, EmailVerificationScreen());
-                              } else {
-                                nextScreenReplace(
-                                    context, VerificationScreen());
-                              }
-                            },
-                            child: Container(
-                              height: 50,
-                              margin: EdgeInsets.symmetric(horizontal: 50),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.blue[900]),
-                              child: Center(
-                                child: Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        GestureDetector(
-                          onTap: (){
-                            nextScreenReplace(context, ServiceMen());
-                          },
-                          child:  Container(
+                          child: Container(
                             height: 50,
                             margin: EdgeInsets.symmetric(horizontal: 50),
                             decoration: BoxDecoration(
@@ -185,7 +135,7 @@ class SignUp extends StatelessWidget {
                                 color: Colors.blue[900]),
                             child: Center(
                               child: Text(
-                                "Sign Up As Servicemen",
+                                "Login",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -193,7 +143,6 @@ class SignUp extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         SizedBox(
                           height: 50,
                         ),
@@ -230,7 +179,7 @@ class SignUp extends StatelessWidget {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  nextScreenReplace(context, LoginPage());
+                                  nextScreenReplace(context, SignUp());
                                 },
                                 child: Container(
                                   height: 50,
@@ -239,7 +188,7 @@ class SignUp extends StatelessWidget {
                                       color: Colors.black),
                                   child: Center(
                                     child: Text(
-                                      "Login",
+                                      "Sign Up",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
