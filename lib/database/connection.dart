@@ -1,21 +1,30 @@
 import 'package:mysql1/mysql1.dart';
 
-class DatabaseHelper {
-  static final _host = 'localhost';
-  static final _port = 3306;
-  static final _user = 'root';
-  static final _password = 'dhruv';
-  static final _db = 'your_database';
+class DatabaseManager {
+  final _host = 'bsi7hofv2ioroqtkezlf-mysql.services.clever-cloud.com';
+  final _port = 3306;
+  final _user = 'um2l11tsadmxrmua';
+  final _password = '7slCqhgRdTnumE8ldaNn';
+  final _db = 'bsi7hofv2ioroqtkezlf';
 
-  static Future<MySqlConnection> getConnection() async {
-    final settings = ConnectionSettings(
+  late MySqlConnection _connection;
+  static final DatabaseManager _instance = DatabaseManager._internal();
+
+  factory DatabaseManager() {
+    return _instance;
+  }
+
+  DatabaseManager._internal();
+
+  Future<void> initialize() async {
+    _connection = await MySqlConnection.connect(ConnectionSettings(
       host: _host,
       port: _port,
       user: _user,
       password: _password,
       db: _db,
-    );
-
-    return await MySqlConnection.connect(settings);
+    ));
   }
+
+  MySqlConnection get connection => _connection;
 }

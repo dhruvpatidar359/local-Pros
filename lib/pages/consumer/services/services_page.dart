@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
-import 'package:localpros/pages/service_list.dart';
-import 'package:localpros/pages/service_men_list.dart';
+import 'package:localpros/pages/consumer/services/service_list.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import '../profile/profile_consumer.dart';
+import '../servicemen/service_men_list.dart';
 
 class ServicePage extends StatefulWidget {
   const ServicePage({Key? key}) : super(key: key);
@@ -414,7 +416,9 @@ class _ServicePageState extends State<ServicePage> {
       ) :
           _currentIndex == 1 ?
           ServiceMenList() :
-          Container(),
+              _currentIndex == 2 ?
+                  Container() :
+          ProfileConsumer(),
         ),
       ),
     );

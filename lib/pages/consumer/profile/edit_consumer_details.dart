@@ -9,6 +9,11 @@ class EditProfilePageConsumer extends StatefulWidget {
 
 class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
   bool showPassword = false;
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController dateOfBirth = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,15 +23,17 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.green,
+            color: Colors.blue,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(
             icon: Icon(
               Icons.settings,
-              color: Colors.green,
+              color: Colors.blue,
             ),
             onPressed: () {
               // Navigator.of(context).push(MaterialPageRoute(
@@ -70,9 +77,8 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                              ))),
+                              image: AssetImage('assets/images/man.png')
+                          )),
                     ),
                     Positioned(
                         bottom: 0,
@@ -86,7 +92,7 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                               width: 4,
                               color: Theme.of(context).scaffoldBackgroundColor,
                             ),
-                            color: Colors.green,
+                            color: Colors.blue,
                           ),
                           child: Icon(
                             Icons.edit,
@@ -99,10 +105,73 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Full Name", "Dor Alex", false),
-              buildTextField("E-mail", "alexd@gmail.com", false),
-              buildTextField("Password", "********", true),
-              buildTextField("Location", "TLV, Israel", false),
+              TextField(
+                controller: fullNameController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "Full Name",
+                ),
+              ),
+              SizedBox(height: 10,),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "E-mail",
+                ),
+              ),
+              SizedBox(height: 10,),
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "Password",
+                ),
+                obscureText: showPassword,
+              ),
+              SizedBox(height: 10,),
+              TextField(
+                controller: dateOfBirth,
+                onTap: () async {
+                  DateTime? date = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100),
+                  );
+                  if(date == null) return ;
+                  setState(() {
+                    dateOfBirth = date as TextEditingController;
+                  });
+                },
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "D.O.B",
+                ),
+              ),
+              SizedBox(height: 10,),
+              TextField(
+                controller: locationController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "Location",
+                ),
+              ),
               SizedBox(
                 height: 35,
               ),
@@ -125,7 +194,7 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                     onPressed: () {},
 
                     style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.green),
+                      backgroundColor: MaterialStatePropertyAll(Colors.blue),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                       elevation: MaterialStatePropertyAll(2),
                     ),
