@@ -1,13 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:localpros/navigation.dart';
+import 'dart:developer';
 
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
+import 'package:localpros/database/connection.dart';
+import 'package:localpros/navigation.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
+import '../../database/database_service.dart';
 import '../consumer/services/services_page.dart';
 import '../signup/signup.dart';
 
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
-class LoginPage extends StatelessWidget {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
+
   TextEditingController _passwordController = TextEditingController();
+
+  bool isSwitched = false;
+  DatabaseService databaseService =
+      DatabaseService(DatabaseManager().connection);
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +123,18 @@ class LoginPage extends StatelessWidget {
                         SizedBox(
                           height: 40,
                         ),
+                        Text(
+                          "Are you servicemen ?",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        Switch(
+                          value: isSwitched,
+                          onChanged: (value) {
+                            setState(() {
+                              isSwitched = value;
+                            });
+                          },
+                        ),
                         GestureDetector(
                           onTap: () async {
                             // showDialog(
@@ -125,7 +153,54 @@ class LoginPage extends StatelessWidget {
                             //         ),
                             //       );
                             //     });
-                           nextScreenReplace(context, ServicePage());
+
+                            final emailVal =
+                                EmailValidator.validate(_emailController.text);
+
+                            if (emailVal == false) {
+                              showTopSnackBar(
+                                Overlay.of(context),
+                                CustomSnackBar.error(
+                                  message: "Please enter correct email address",
+                                ),
+                              );
+                            } else {
+                              if (isSwitched == true) {
+                                final isReg = await databaseService.loginUser(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                  "servicemen",
+                                );
+
+                                if (isReg) {
+                                  nextScreenReplace(context, ServicePage());
+                                } else {
+                                  showTopSnackBar(
+                                    Overlay.of(context),
+                                    CustomSnackBar.error(
+                                      message: "Something went wrong.",
+                                    ),
+                                  );
+                                }
+                              } else {
+                                final isReg = await databaseService.loginUser(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                  "consumer",
+                                );
+
+                                if (isReg) {
+                                  nextScreenReplace(context, ServicePage());
+                                } else {
+                                  showTopSnackBar(
+                                    Overlay.of(context),
+                                    CustomSnackBar.error(
+                                      message: "Something went wrong.",
+                                    ),
+                                  );
+                                }
+                              }
+                            }
                           },
                           child: Container(
                             height: 50,

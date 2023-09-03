@@ -40,13 +40,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   intro_slider: ^4.2.0
   lottie: ^2.6.0
-  google_fonts: ^5.1.0
+  google_fonts: ^4.0.4
   flutter_svg: ^2.0.7
   flutter_otp_text_field: ^1.1.1
   random_avatar: ^0.0.8
   salomon_bottom_bar: ^3.3.2
   shared_preferences: ^2.2.0
   mysql1: ^0.20.0
+  email_otp: ^2.0.1
+  email_validator: ^2.1.17
+  top_snackbar_flutter: ^3.1.0
 
 dev_dependencies:
   flutter_test:

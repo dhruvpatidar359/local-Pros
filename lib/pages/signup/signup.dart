@@ -1,7 +1,13 @@
+import 'package:email_otp/email_otp.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:localpros/database/connection.dart';
+import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/signup/verification_code.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../login/login.dart';
 import '../servicemen/servicemen.dart';
@@ -37,9 +43,8 @@ class SignUp extends StatelessWidget {
                 children: [
                   Text(
                     "Sign Up",
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 40),
+                    style:
+                        GoogleFonts.poppins(color: Colors.white, fontSize: 40),
                   ),
                   SizedBox(
                     height: 10,
@@ -148,12 +153,50 @@ class SignUp extends StatelessWidget {
                           },
                           child: GestureDetector(
                             onTap: () {
-                              if (_emailController.text.contains(".com")) {
-                                nextScreenReplace(
-                                    context, EmailVerificationScreen());
+                              // if (_emailController.text.contains(".com")) {
+                              //   nextScreenReplace(
+                              //       context, EmailVerificationScreen());
+                              // } else {
+                              //   nextScreenReplace(
+                              //       context, VerificationScreen());
+                              // }
+
+                              final emailVal = EmailValidator.validate(
+                                  _emailController.text);
+
+                              if (emailVal == false) {
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  CustomSnackBar.error(
+                                    message:
+                                        "Please enter correct email address",
+                                  ),
+                                );
                               } else {
+                                // myauth.setConfig(
+                                //     appEmail: "fe1234qwer@gmail.com",
+                                //     appName: "localpros",
+                                //     userEmail: _emailController.text,
+                                //     otpLength: 6,
+                                //     otpType: OTPType.digitsOnly
+                                // );
+
                                 nextScreenReplace(
-                                    context, VerificationScreen());
+                                    context,
+                                    VerificationScreen(
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                      name: _nameController.text,
+                                      userType: "consumer",
+                                    ));
+
+                                //
+                                // databaseService.registerUser(
+                                //   _emailController.text,
+                                //   _passwordController.text,
+                                //   "consumer",
+                                //   _nameController.text,
+                                // );
                               }
                             },
                             child: Container(
@@ -173,12 +216,49 @@ class SignUp extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         GestureDetector(
-                          onTap: (){
-                            nextScreenReplace(context, ServiceMen());
+                          onTap: () {
+                            final emailVal =
+                                EmailValidator.validate(_emailController.text);
+
+                            if (emailVal == false) {
+                              showTopSnackBar(
+                                Overlay.of(context),
+                                CustomSnackBar.error(
+                                  message: "Please enter correct email address",
+                                ),
+                              );
+                            } else {
+                              // myauth.setConfig(
+                              //     appEmail: "fe1234qwer@gmail.com",
+                              //     appName: "localpros",
+                              //     userEmail: _emailController.text,
+                              //     otpLength: 6,
+                              //     otpType: OTPType.digitsOnly
+                              // );
+
+                              nextScreenReplace(
+                                  context,
+                                  VerificationScreen(
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    name: _nameController.text,
+                                    userType: "serviceman",
+                                  ));
+
+                              //
+                              // databaseService.registerUser(
+                              //   _emailController.text,
+                              //   _passwordController.text,
+                              //   "consumer",
+                              //   _nameController.text,
+                              // );
+                            }
                           },
-                          child:  Container(
+                          child: Container(
                             height: 50,
                             margin: EdgeInsets.symmetric(horizontal: 50),
                             decoration: BoxDecoration(
@@ -194,7 +274,6 @@ class SignUp extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         SizedBox(
                           height: 50,
                         ),
