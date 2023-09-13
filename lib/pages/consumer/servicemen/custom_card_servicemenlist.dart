@@ -23,14 +23,20 @@ class CustomCard extends StatelessWidget {
                   color: Colors.grey, // Placeholder color
                   borderRadius: BorderRadius.circular(40),
                 ),
-                child: Icon(Icons.person), // Replace with your photo
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/man.png')
+                    )
+                  ),
+                ), // Replace with your photo
               ),
               SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'John Doe', // Replace with person's name
+                    'Ayush Mishra', // Replace with person's name
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

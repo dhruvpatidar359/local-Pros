@@ -19,7 +19,7 @@ class ServiceMenDetails extends StatelessWidget {
               top: 0,
               child: Container(
                 alignment: Alignment.topCenter,
-                height: size.height - 300,
+                height: size.height/2,
                 width: size.width,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -51,7 +51,7 @@ class ServiceMenDetails extends StatelessWidget {
             Positioned(
                 bottom: 0,
                 child: Container(
-                  height: size.height / 2,
+                  height: size.height / 2.1,
                   width: size.width,
                   decoration: BoxDecoration(
                     color: AppColor.secondary,
@@ -59,85 +59,88 @@ class ServiceMenDetails extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            height: 5,
-                            width: 32 * 1.5,
-                            decoration: BoxDecoration(
-                              gradient: AppColor.gradient,
-                              borderRadius: BorderRadius.circular(3),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 16),
+                              height: 5,
+                              width: 32 * 1.5,
+                              decoration: BoxDecoration(
+                                gradient: AppColor.gradient,
+                                borderRadius: BorderRadius.circular(3),
+                              ),
                             ),
                           ),
-                        ),
-                        const ProductNameAndPrice(),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text('Address :',
-                            style: AppStyle.text
-                                .copyWith(color: Colors.white.withOpacity(.8))),
-                        const Spacing(),
-                        Text('Mobile Number :',
-                            style: AppStyle.text
-                                .copyWith(color: Colors.white.withOpacity(.8))),
-                        const Spacing(),
-                        Text('Experience :',
-                            style: AppStyle.text
-                                .copyWith(color: Colors.white.withOpacity(.8))),
-                        const Spacing(),
-                        Text('Work Details :',
-                            style: AppStyle.text
-                                .copyWith(color: Colors.white.withOpacity(.8))),
-                        const Spacing(),
-                        Text(
-                          'This is weekdays design-your go-to for all the latest trends, no matter who you are.',
-                          style: AppStyle.bodyText.copyWith(color: Colors.white),
-                        ),
-                        const Spacing(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Center(
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(
-                                            AppColor.primary),
-                                        shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(16))),
-                                        minimumSize: MaterialStateProperty.all(
-                                            Size(size.width / 2.5, 37))),
-                                    onPressed: () {},
-                                    child: Text('Call Now',
-                                        style: AppStyle.h3
-                                            .copyWith(color: Colors.white)))),
-                            Center(
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(
-                                            AppColor.primary),
-                                        shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(16))),
-                                        minimumSize: MaterialStateProperty.all(
-                                            Size(size.width / 2.5, 37))),
-                                    onPressed: () {},
-                                    child: Text('History',
-                                        style: AppStyle.h3
-                                            .copyWith(color: Colors.white)))),
-                          ],
-                        ),
-                      ],
+                          const ProductNameAndPrice(),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text('Address :',
+                              style: AppStyle.text
+                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                          const Spacing(),
+                          Text('Mobile Number :',
+                              style: AppStyle.text
+                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                          const Spacing(),
+                          Text('Experience :',
+                              style: AppStyle.text
+                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                          const Spacing(),
+                          Text('Work Details :',
+                              style: AppStyle.text
+                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                          const Spacing(),
+                          Text(
+                            'This is weekdays design-your go-to for all the latest trends, no matter who you are.',
+                            style: AppStyle.bodyText.copyWith(color: Colors.white),
+                          ),
+                          const Spacing(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Center(
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(
+                                              AppColor.primary),
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(16))),
+                                          minimumSize: MaterialStateProperty.all(
+                                              Size(size.width / 2.5, 37))),
+                                      onPressed: () {},
+                                      child: Text('Call Now',
+                                          style: AppStyle.h3
+                                              .copyWith(color: Colors.white)))),
+                              Center(
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(
+                                              AppColor.primary),
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(16))),
+                                          minimumSize: MaterialStateProperty.all(
+                                              Size(size.width / 2.5, 37))),
+                                      onPressed: () {},
+                                      child: Text('History',
+                                          style: AppStyle.h3
+                                              .copyWith(color: Colors.white)))),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ))
+                )
+            ),
           ],
         ),
       ),

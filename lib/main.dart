@@ -14,7 +14,7 @@ void main() async {
   runApp(MaterialApp(
     home: SafeArea(
       child: Scaffold(
-        body: ServicePage(),
+        body: IntroSliderDemo(),
       ),
     ),
   ));

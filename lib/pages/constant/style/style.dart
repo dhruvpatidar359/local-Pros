@@ -34,14 +34,14 @@ abstract class AppStyle {
       color: AppColor.text);
 
   static const text = TextStyle(
-      fontSize: 14,
+      fontSize: 18,
       fontWeight: FontWeight.normal,
       // letterSpacing: 20,
       // height: 20,
       color: AppColor.text);
 
   static const bodyText = TextStyle(
-      fontSize: 12,
+      fontSize: 16,
       fontWeight: FontWeight.normal,
       // letterSpacing: 20,
       // height: 20,
