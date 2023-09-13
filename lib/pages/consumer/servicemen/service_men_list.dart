@@ -48,7 +48,7 @@ class CustomCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'John Doe', // Replace with person's name
+                  'Raj Sharma', // Replace with person's name
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
