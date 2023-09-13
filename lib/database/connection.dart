@@ -26,5 +26,9 @@ class DatabaseManager {
     ));
   }
 
+  Future<void> close() async {
+    _connection.close();
+  }
+
   MySqlConnection get connection => _connection;
 }

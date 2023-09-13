@@ -49,25 +49,33 @@ class GeoCard extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   'Ratings :',
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   'Price: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   'Description:',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 Text(
                   '* Get 2X deeper dust removal with \nfoamjet technology',
                   style: TextStyle(
@@ -83,22 +91,21 @@ class GeoCard extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: 30,
+              width: 5,
             ),
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/ac_2.webp"),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
+            // Container(
+            //   height: 100,
+            //   width: 100,
+            //   decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage("assets/images/ac_2.webp"),
+            //     ),
+            //     borderRadius: BorderRadius.circular(15),
+            //   ),
+            // ),
           ],
         ),
       ),
     );
   }
 }
-

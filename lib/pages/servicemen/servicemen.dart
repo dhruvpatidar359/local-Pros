@@ -21,27 +21,26 @@ class _ServiceMenState extends State<ServiceMen> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blue.shade300,
-            title: _currentIndex == 0 ?
-            Text(
-              'Notifications',
-              style: GoogleFonts.lora(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-              ),
-            ) :
-            Text(
-              'Profile',
-              style: GoogleFonts.lora(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ) ,
+            title: _currentIndex == 0
+                ? Text(
+                    'Notifications',
+                    style: GoogleFonts.lora(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                : Text(
+                    'Profile',
+                    style: GoogleFonts.lora(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
             centerTitle: true,
           ),
           bottomNavigationBar: SalomonBottomBar(
-
             backgroundColor: Colors.grey.shade100,
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             currentIndex: _currentIndex,
@@ -77,15 +76,14 @@ class _ServiceMenState extends State<ServiceMen> {
                   height: 150,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/man.png'),
-                      )
-                  ),
+                    image: AssetImage('assets/images/man.png'),
+                  )),
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 Text(
-                  'Jane Doe',
+                  'Ayush Mishra',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -94,7 +92,7 @@ class _ServiceMenState extends State<ServiceMen> {
                   ),
                 ),
                 Text(
-                  'janedoe@gmail.com',
+                  'ayush@gmail.com',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -113,7 +111,7 @@ class _ServiceMenState extends State<ServiceMen> {
                     selectedColor: Colors.white,
                     selected: true,
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     leading: Icon(Icons.share),
                     title: Text(
                       'Share with friends',
@@ -132,7 +130,7 @@ class _ServiceMenState extends State<ServiceMen> {
                     selectedColor: Colors.white,
                     selected: true,
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     leading: Icon(Icons.location_on),
                     title: Text(
                       'Address',
@@ -151,7 +149,7 @@ class _ServiceMenState extends State<ServiceMen> {
                     selectedColor: Colors.white,
                     selected: true,
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     leading: Icon(Icons.notification_important),
                     title: Text(
                       'Notifications',
@@ -164,9 +162,7 @@ class _ServiceMenState extends State<ServiceMen> {
               ],
             ),
           ),
-          body: _currentIndex == 0 ?
-              Notifications() :
-              Container(),
+          body: _currentIndex == 0 ? Notifications() : Container(),
         ),
       ),
     );

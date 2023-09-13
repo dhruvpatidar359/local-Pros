@@ -22,8 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordController = TextEditingController();
 
   bool isSwitched = false;
-  DatabaseService databaseService =
-      DatabaseService(DatabaseManager().connection);
+  DatabaseService databaseService = DatabaseService();
 
   @override
   Widget build(BuildContext context) {

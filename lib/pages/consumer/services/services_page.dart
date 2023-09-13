@@ -23,45 +23,44 @@ class _ServicePageState extends State<ServicePage> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blue.shade300,
-            title: _currentIndex == 0 ?
-              Text(
-              'Services',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ) :
-                _currentIndex == 1 ?
-                  Text(
-              'Servicemen List',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ) :
-                    _currentIndex == 2 ?
-                      Text(
-                  'Cart',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ) :
-                          Text(
-                      'Profile',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+            title: _currentIndex == 0
+                ? Text(
+                    'Services',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
+                  )
+                : _currentIndex == 1
+                    ? Text(
+                        'Servicemen List',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : _currentIndex == 2
+                        ? Text(
+                            'Cart',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Text(
+                            'Profile',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
             centerTitle: true,
           ),
           bottomNavigationBar: SalomonBottomBar(
-
             backgroundColor: Colors.grey.shade100,
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             currentIndex: _currentIndex,
@@ -110,16 +109,15 @@ class _ServicePageState extends State<ServicePage> {
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/man.png'),
-                    )
-                  ),
+                      image: DecorationImage(
+                    image: AssetImage('assets/images/man.png'),
+                  )),
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 Text(
-                  'Jane Doe',
+                  'Ayush Mishra',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -128,7 +126,7 @@ class _ServicePageState extends State<ServicePage> {
                   ),
                 ),
                 Text(
-                  'janedoe@gmail.com',
+                  'ayush@gmail.com',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -198,227 +196,228 @@ class _ServicePageState extends State<ServicePage> {
               ],
             ),
           ),
-          body: _currentIndex == 0 ?
-          Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-        child: GridView.count(
-          crossAxisCount: 3,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                nextScreen(context, ServiceList());
-              },
-              child: Column(
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/ac.png'),
+          body: _currentIndex == 0
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          nextScreen(context, ServiceList());
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/ac.png'),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'AC Repair',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                  Text(
-                    'AC Repair',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/cooler.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Cooler Repair',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/wash.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Appliances',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/socket.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Switch Repair',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/plug.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Electronics',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/wiring.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Wiring Repair',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/pliers.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Connections',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/ac.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'AC Repair',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/ac.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'AC Repair',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/ac.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'AC Repair',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/cooler.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Cooler Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/wash.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Appliances',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/socket.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Switch Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/plug.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Electronics',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/wiring.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Wiring Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/pliers.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Connections',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/ac.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'AC Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/ac.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'AC Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/ac.png'),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'AC Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 )
-              ],
-            ),
-          ],
-        ),
-      ) :
-          _currentIndex == 1 ?
-          ServiceMenList() :
-              _currentIndex == 2 ?
-                  Container() :
-          ProfileConsumer(),
+              : _currentIndex == 1
+                  ? ServiceMenList()
+                  : _currentIndex == 2
+                      ? Container()
+                      : ProfileConsumer(),
         ),
       ),
     );

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:localpros/database/connection.dart';
+import 'package:localpros/database/database_service.dart';
+import 'package:mysql1/mysql1.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:settings_ui/pages/settings.dart';
-
 
 class EditProfilePageConsumer extends StatefulWidget {
   @override
-  _EditProfilePageConsumerState createState() => _EditProfilePageConsumerState();
+  _EditProfilePageConsumerState createState() =>
+      _EditProfilePageConsumerState();
 }
 
 class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
@@ -14,6 +18,46 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController dateOfBirth = TextEditingController();
+
+  DatabaseService databaseService = DatabaseService();
+  late SharedPreferences prefs;
+  late Results result;
+
+  void getDetails() async {
+    prefs = await SharedPreferences.getInstance();
+    result = await databaseService.fetchProfile(
+        prefs.getString("email")!, "consumer");
+
+    setState(() {
+      fullNameController.text = result.first.values![0].toString();
+      emailController.text = result.first.values![1].toString();
+      passwordController.text = result.first.values![2].toString();
+      locationController.text = result.first.values![4].toString();
+      dateOfBirth.text = result.first.values![3].toString().split(" ")[0];
+    });
+
+    print(result.first.values?[0]);
+  }
+
+  void setDetails() {
+    databaseService.setDetails(
+      prefs.getString("email")!,
+      "consumer",
+      fullNameController.text,
+      passwordController.text,
+      dateOfBirth.text,
+      locationController.text,
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,8 +121,7 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('assets/images/man.png')
-                          )),
+                              image: AssetImage('assets/images/man.png'))),
                     ),
                     Positioned(
                         bottom: 0,
@@ -115,7 +158,9 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                   labelText: "Full Name",
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -126,7 +171,9 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                   labelText: "E-mail",
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               TextField(
                 controller: passwordController,
                 decoration: InputDecoration(
@@ -138,17 +185,19 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                 ),
                 obscureText: showPassword,
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               TextField(
                 controller: dateOfBirth,
                 onTap: () async {
                   DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2100),
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2100),
                   );
-                  if(date == null) return ;
+                  if (date == null) return;
                   setState(() {
                     dateOfBirth = date as TextEditingController;
                   });
@@ -161,7 +210,9 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                   labelText: "D.O.B",
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               TextField(
                 controller: locationController,
                 decoration: InputDecoration(
@@ -180,8 +231,10 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                 children: [
                   OutlinedButton(
                     style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                      padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 50)),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                      padding: MaterialStatePropertyAll(
+                          EdgeInsets.symmetric(horizontal: 50)),
                     ),
                     onPressed: () {},
                     child: Text("CANCEL",
@@ -191,11 +244,13 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                             color: Colors.black)),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
-
+                    onPressed: () {
+                      setDetails();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
                       elevation: MaterialStatePropertyAll(2),
                     ),
                     child: Text(
@@ -224,16 +279,16 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField
                 ? IconButton(
-              onPressed: () {
-                setState(() {
-                  showPassword = !showPassword;
-                });
-              },
-              icon: Icon(
-                Icons.remove_red_eye,
-                color: Colors.grey,
-              ),
-            )
+                    onPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: Colors.grey,
+                    ),
+                  )
                 : null,
             contentPadding: EdgeInsets.only(bottom: 3),
             labelText: labelText,
