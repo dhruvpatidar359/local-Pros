@@ -7,6 +7,7 @@ import 'package:localpros/database/connection.dart';
 import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/servicemen/servicemen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -133,6 +134,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
               onSubmit: (String code) async {
                 final isVer = await myauth.verifyOTP(otp: code);
+
                 if (isVer == true) {
                   databaseService.registerUser(
                     widget.email,
@@ -140,6 +142,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     widget.userType,
                     widget.name,
                   );
+
                   if (widget.userType == "consumer")
                     nextScreenReplace(context, ServicePage());
                   else {

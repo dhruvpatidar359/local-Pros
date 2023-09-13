@@ -68,6 +68,8 @@ class DatabaseService {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('email', email);
+    await prefs.setBool("isLoggedIn", true);
+    await prefs.setString('person', userType);
   }
 
   Future<bool> loginUser(String email, String password, String userType) async {
@@ -79,6 +81,10 @@ class DatabaseService {
           'SELECT email FROM consumer WHERE email = ? AND password = ?',
           [email, password],
         );
+        await prefs.setString('email', email);
+        await prefs.setBool("isLoggedIn", true);
+        await prefs.setString('person', userType);
+        print(prefs.getBool("isLoggedIn"));
       } catch (e) {
         print(e);
         print("reinit database");
@@ -90,6 +96,9 @@ class DatabaseService {
         );
       }
       await prefs.setString('email', email);
+      await prefs.setBool("isLoggedIn", true);
+      await prefs.setString('person', userType);
+      print(prefs.getBool("isLoggedIn"));
       return result.isNotEmpty;
     } else {
       late Results result;
@@ -98,6 +107,10 @@ class DatabaseService {
           'SELECT email FROM servicemen WHERE email = ? AND password = ?',
           [email, password],
         );
+        await prefs.setString('email', email);
+        await prefs.setBool("isLoggedIn", true);
+        await prefs.setString('person', userType);
+        print(prefs.getBool("isLoggedIn"));
       } catch (e) {
         print(e);
         print("reinit database");
@@ -110,10 +123,20 @@ class DatabaseService {
       }
 
       await prefs.setString('email', email);
+      await prefs.setBool("isLoggedIn", true);
+      await prefs.setString('person', userType);
+      print(prefs.getBool("isLoggedIn"));
 
       log("User has been logged : + ${result.isNotEmpty}");
       return result.isNotEmpty;
     }
+  }
+
+  Future<void> logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', '');
+    await prefs.setBool("isLoggedIn", false);
+    await prefs.setString('person', '');
   }
 
   Future<Results> fetchProfile(String email, String userType) async {
@@ -123,7 +146,7 @@ class DatabaseService {
 
       try {
         result = await _connection.query(
-          'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
+          'SELECT name,email,password,dob,address,gender,contactNumber FROM consumer WHERE email = ?',
           [email],
         );
         // databaseManager.close();
@@ -137,7 +160,7 @@ class DatabaseService {
         //   [email],
         // );
         result = await _connection.query(
-          'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
+          'SELECT name,email,password,dob,address,gender,contactNumber FROM consumer WHERE email = ?',
           [email],
         );
       }
@@ -166,30 +189,39 @@ class DatabaseService {
     }
   }
 
-  Future<void> setDetails(String email, String userType, String name,
-      String password, String dob, String location) async {
+  Future<void> setDetails(
+      String email,
+      String userType,
+      String name,
+      String password,
+      String dob,
+      String location,
+      String gender,
+      String contact) async {
     if (userType == 'consumer') {
       try {
+        print(gender);
         await _connection.query(
-          'update consumer set name = ?,password = ? ,dob = ?,address = ? where email = ?',
-          [name, password, dob, location, email],
+          'update consumer set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ? where email = ?',
+          [name, password, dob, location, gender, contact, email],
         );
         // databaseManager.close();
       } catch (e) {
+        print(gender);
         print(e);
         print("reinit database");
         await databaseManager.initialize();
         _connection = DatabaseManager().connection;
         await _connection.query(
-          'update consumer set name = ?,password = ? ,dob = ?,address = ? where email = ?',
-          [name, password, dob, location, email],
+          'update consumer set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ? where email = ?',
+          [name, password, dob, location, gender, contact, email],
         );
       }
     } else {
       try {
         await _connection.query(
-          'update servicemen set name = ?,password = ? ,dob = ?,address = ? where email = ?',
-          [name, password, dob, location, email],
+          'update servicemen set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ? where email = ?',
+          [name, password, dob, location, gender, contact, email],
         );
       } catch (e) {
         print(e);
@@ -197,8 +229,8 @@ class DatabaseService {
         await databaseManager.initialize();
         _connection = DatabaseManager().connection;
         await _connection.query(
-          'update servicemen set name = ?,password = ? ,dob = ?,address = ? where email = ?',
-          [name, password, dob, location, email],
+          'update servicemen set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ? where email = ?',
+          [name, password, dob, location, gender, contact, email],
         );
       }
     }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/login/login.dart';
 
 import 'edit_consumer_details.dart';
 
 class ProfileConsumer extends StatelessWidget {
+  DatabaseService databaseService = DatabaseService();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -163,23 +167,57 @@ class ProfileConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Card(
-                        color: Colors.white70,
-                        margin: const EdgeInsets.only(
-                            left: 35, right: 35, bottom: 10),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const ListTile(
-                          leading: Icon(
-                            Icons.logout,
-                            color: Colors.black54,
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Logout Confirmation'),
+                                content: Text('You are about to logout.'),
+                                actions: <Widget>[
+                                  // Cancel button
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                    child: Text('Cancel'),
+                                  ),
+                                  // Logout button
+                                  TextButton(
+                                    onPressed: () {
+                                      // Add your logout logic here
+                                      databaseService.logout();
+                                      Navigator.of(context).pop();
+                                      nextScreenReplace(context,
+                                          LoginPage()); // Close the dialog
+                                    },
+                                    child: Text('Logout'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Card(
+                          color: Colors.white70,
+                          margin: const EdgeInsets.only(
+                              left: 35, right: 35, bottom: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          child: const ListTile(
+                            leading: Icon(
+                              Icons.logout,
+                              color: Colors.black54,
+                            ),
+                            title: Text(
+                              'Logout',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Icon(Icons.arrow_forward_ios_outlined),
                           ),
-                          title: Text(
-                            'Logout',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          trailing: Icon(Icons.arrow_forward_ios_outlined),
                         ),
                       )
                     ],

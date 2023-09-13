@@ -3,6 +3,8 @@ import 'package:localpros/database/connection.dart';
 import 'package:localpros/database/database_service.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 // import 'package:settings_ui/pages/settings.dart';
 
 class EditProfilePageConsumer extends StatefulWidget {
@@ -18,6 +20,8 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController dateOfBirth = TextEditingController();
+  TextEditingController contactController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
 
   DatabaseService databaseService = DatabaseService();
   late SharedPreferences prefs;
@@ -34,20 +38,59 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
       passwordController.text = result.first.values![2].toString();
       locationController.text = result.first.values![4].toString();
       dateOfBirth.text = result.first.values![3].toString().split(" ")[0];
+      contactController.text = result.first.values![6].toString();
+
+      String gender = result.first.values![5].toString();
+      if (gender != "null") {
+        genderController.text =
+            result.first.values![5].toString() == "m" ? "Male" : "Female";
+      } else {
+        genderController.text = result.first.values![5].toString();
+      }
     });
 
     print(result.first.values?[0]);
   }
 
   void setDetails() {
-    databaseService.setDetails(
-      prefs.getString("email")!,
-      "consumer",
-      fullNameController.text,
-      passwordController.text,
-      dateOfBirth.text,
-      locationController.text,
-    );
+    final dob = dateOfBirth.text.split("-");
+
+    if (dob[0].length == 4 &&
+        dob[1].length == 2 &&
+        dob[2].length == 2 &&
+        (genderController.text == "Male" ||
+            genderController.text == "male" ||
+            genderController.text == "female" ||
+            genderController.text == "Female" ||
+            genderController.text == "null")) {
+      String gender = genderController.text;
+      if (gender != "null") {
+        if (gender == "Male" || gender == 'male') {
+          gender = 'm';
+        } else {
+          gender = 'f';
+        }
+      } else {
+        gender = "n";
+      }
+
+      databaseService.setDetails(
+          prefs.getString("email")!,
+          "consumer",
+          fullNameController.text,
+          passwordController.text,
+          dateOfBirth.text,
+          locationController.text,
+          gender,
+          contactController.text);
+    } else {
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(
+          message: "Enter Correct Format YYYY-MM-DD",
+        ),
+      );
+    }
   }
 
   @override
@@ -162,6 +205,7 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                 height: 10,
               ),
               TextField(
+                enabled: false,
                 controller: emailController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -169,6 +213,19 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                   ),
                   focusColor: Colors.blue,
                   labelText: "E-mail",
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: contactController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "Contacts",
                 ),
               ),
               SizedBox(
@@ -189,25 +246,38 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                 height: 10,
               ),
               TextField(
+                controller: genderController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "Gender(Male/Female)",
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
                 controller: dateOfBirth,
                 onTap: () async {
-                  DateTime? date = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime(2100),
-                  );
-                  if (date == null) return;
-                  setState(() {
-                    dateOfBirth = date as TextEditingController;
-                  });
+                  // DateTime? date = await showDatePicker(
+                  //   context: context,
+                  //   initialDate: DateTime.now(),
+                  //   firstDate: DateTime(1900),
+                  //   lastDate: DateTime(2100),
+                  // );
+                  // if (date == null) return;
+                  // setState(() {
+                  //   dateOfBirth = date as TextEditingController;
+                  // });
                 },
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue),
                   ),
                   focusColor: Colors.blue,
-                  labelText: "D.O.B",
+                  labelText: "D.O.B(YYYY-MM-DD)",
                 ),
               ),
               SizedBox(
