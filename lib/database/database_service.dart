@@ -23,6 +23,7 @@ class DatabaseService {
         );
       } catch (e) {
         print(e);
+        print("reinit database");
         await databaseManager.initialize();
         result = await _connection.query(
           'INSERT INTO consumer (email, password, name) VALUES (?, ?, ?)',
@@ -48,6 +49,7 @@ class DatabaseService {
         );
       } catch (e) {
         print(e);
+        print("reinit database");
         await databaseManager.initialize();
         result = await _connection.query(
           'INSERT INTO servicemen (email, password, name) VALUES (?, ?, ?)',
@@ -79,7 +81,8 @@ class DatabaseService {
         );
       } catch (e) {
         print(e);
-        databaseManager.initialize();
+        print("reinit database");
+        await databaseManager.initialize();
         result = await _connection.query(
           'SELECT email FROM consumer WHERE email = ? AND password = ?',
           [email, password],
@@ -96,7 +99,8 @@ class DatabaseService {
         );
       } catch (e) {
         print(e);
-        databaseManager.initialize();
+        print("reinit database");
+        await databaseManager.initialize();
         result = await _connection.query(
           'SELECT email FROM servicemen WHERE email = ? AND password = ?',
           [email, password],
@@ -113,7 +117,8 @@ class DatabaseService {
   Future<Results> fetchProfile(String email, String userType) async {
     if (userType == 'consumer') {
       late Results result;
-
+      print("fetching");
+      // databaseManager.close();
       try {
         result = await _connection.query(
           'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
@@ -121,7 +126,12 @@ class DatabaseService {
         );
       } catch (e) {
         print(e);
-        databaseManager.initialize();
+        print("reinit database");
+        await databaseManager.initialize();
+        // await _connection.query(
+        //   'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
+        //   [email],
+        // );
         result = await _connection.query(
           'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
           [email],
@@ -139,14 +149,51 @@ class DatabaseService {
         );
       } catch (e) {
         print(e);
-        databaseManager.initialize();
+        print("reinit database");
+        await databaseManager.initialize();
         result = await _connection.query(
           'SELECT name,email,password,dob,address FROM servicemen WHERE email = ?',
           [email],
         );
       }
-
+      print("got details");
       return result;
     }
+  }
+
+  Future<void> setDetails(String email, String userType, String name,
+      String password, String dob, String location) async {
+    if (userType == 'consumer') {
+      try {
+        await _connection.query(
+          'update consumer set name = ?,password = ? ,dob = ?,address = ? where email = ?',
+          [name, password, dob, location, email],
+        );
+      } catch (e) {
+        print(e);
+        print("reinit database");
+        databaseManager.initialize();
+        await _connection.query(
+          'update consumer set name = ?,password = ? ,dob = ?,address = ? where email = ?',
+          [name, password, dob, location, email],
+        );
+      }
+    } else {
+      try {
+        await _connection.query(
+          'update servicemen set name = ?,password = ? ,dob = ?,address = ? where email = ?',
+          [name, password, dob, location, email],
+        );
+      } catch (e) {
+        print(e);
+        print("reinit database");
+        databaseManager.initialize();
+        await _connection.query(
+          'update servicemen set name = ?,password = ? ,dob = ?,address = ? where email = ?',
+          [name, password, dob, location, email],
+        );
+      }
+    }
+    print("set success");
   }
 }

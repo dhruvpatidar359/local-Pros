@@ -33,14 +33,23 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
       fullNameController.text = result.first.values![0].toString();
       emailController.text = result.first.values![1].toString();
       passwordController.text = result.first.values![2].toString();
-      locationController.text = result.first.values![3].toString();
-      dateOfBirth.text = result.first.values![4].toString();
+      locationController.text = result.first.values![4].toString();
+      dateOfBirth.text = result.first.values![3].toString().split(" ")[0];
     });
 
     print(result.first.values?[0]);
   }
 
-  void setDetails() {}
+  void setDetails() {
+    databaseService.setDetails(
+      prefs.getString("email")!,
+      "consumer",
+      fullNameController.text,
+      passwordController.text,
+      dateOfBirth.text,
+      locationController.text,
+    );
+  }
 
   @override
   void initState() {
@@ -236,7 +245,9 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                             color: Colors.black)),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setDetails();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.blue),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
