@@ -5,9 +5,7 @@ import 'package:mysql1/mysql1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseService {
-  final MySqlConnection _connection;
-
-  DatabaseService(this._connection);
+  MySqlConnection _connection = DatabaseManager().connection;
 
   DatabaseManager databaseManager = DatabaseManager();
 
@@ -25,6 +23,7 @@ class DatabaseService {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         result = await _connection.query(
           'INSERT INTO consumer (email, password, name) VALUES (?, ?, ?)',
           [email, password, name],
@@ -51,6 +50,7 @@ class DatabaseService {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         result = await _connection.query(
           'INSERT INTO servicemen (email, password, name) VALUES (?, ?, ?)',
           [email, password, name],
@@ -83,6 +83,7 @@ class DatabaseService {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         result = await _connection.query(
           'SELECT email FROM consumer WHERE email = ? AND password = ?',
           [email, password],
@@ -101,6 +102,7 @@ class DatabaseService {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         result = await _connection.query(
           'SELECT email FROM servicemen WHERE email = ? AND password = ?',
           [email, password],
@@ -118,16 +120,18 @@ class DatabaseService {
     if (userType == 'consumer') {
       late Results result;
       print("fetching");
-      // databaseManager.close();
+
       try {
         result = await _connection.query(
           'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
           [email],
         );
+        // databaseManager.close();
       } catch (e) {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         // await _connection.query(
         //   'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
         //   [email],
@@ -151,6 +155,7 @@ class DatabaseService {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         result = await _connection.query(
           'SELECT name,email,password,dob,address FROM servicemen WHERE email = ?',
           [email],
@@ -169,10 +174,12 @@ class DatabaseService {
           'update consumer set name = ?,password = ? ,dob = ?,address = ? where email = ?',
           [name, password, dob, location, email],
         );
+        // databaseManager.close();
       } catch (e) {
         print(e);
         print("reinit database");
-        databaseManager.initialize();
+        await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         await _connection.query(
           'update consumer set name = ?,password = ? ,dob = ?,address = ? where email = ?',
           [name, password, dob, location, email],
@@ -187,7 +194,8 @@ class DatabaseService {
       } catch (e) {
         print(e);
         print("reinit database");
-        databaseManager.initialize();
+        await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
         await _connection.query(
           'update servicemen set name = ?,password = ? ,dob = ?,address = ? where email = ?',
           [name, password, dob, location, email],

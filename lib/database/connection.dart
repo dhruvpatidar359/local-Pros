@@ -16,7 +16,7 @@ class DatabaseManager {
 
   DatabaseManager._internal();
 
-  Future<MySqlConnection> initialize() async {
+  Future<void> initialize() async {
     _connection = await MySqlConnection.connect(ConnectionSettings(
       host: _host,
       port: _port,
@@ -24,7 +24,6 @@ class DatabaseManager {
       password: _password,
       db: _db,
     ));
-    return _connection;
   }
 
   Future<void> close() async {

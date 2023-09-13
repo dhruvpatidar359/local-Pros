@@ -19,8 +19,7 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
   TextEditingController locationController = TextEditingController();
   TextEditingController dateOfBirth = TextEditingController();
 
-  DatabaseService databaseService =
-      DatabaseService(DatabaseManager().connection);
+  DatabaseService databaseService = DatabaseService();
   late SharedPreferences prefs;
   late Results result;
 

@@ -37,8 +37,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Timer? _timer;
 
   EmailOTP myauth = EmailOTP();
-  DatabaseService databaseService =
-      DatabaseService(DatabaseManager().connection);
+  DatabaseService databaseService = DatabaseService();
 
   @override
   void initState() {
