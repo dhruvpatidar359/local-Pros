@@ -27,7 +27,7 @@ class _ServicePageState extends State<ServicePage> {
               Text(
               'Services',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
@@ -36,7 +36,7 @@ class _ServicePageState extends State<ServicePage> {
                   Text(
               'Servicemen List',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
@@ -45,7 +45,7 @@ class _ServicePageState extends State<ServicePage> {
                       Text(
                   'Cart',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
@@ -53,7 +53,7 @@ class _ServicePageState extends State<ServicePage> {
                           Text(
                       'Profile',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
