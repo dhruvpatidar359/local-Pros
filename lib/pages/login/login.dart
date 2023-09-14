@@ -8,6 +8,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../database/database_service.dart';
+import '../../wingets/loading.dart';
 import '../consumer/services/services_page.dart';
 import '../signup/signup.dart';
 
@@ -152,11 +153,17 @@ class _LoginPageState extends State<LoginPage> {
                             //         ),
                             //       );
                             //     });
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Loading();
+                                });
 
                             final emailVal =
                                 EmailValidator.validate(_emailController.text);
 
                             if (emailVal == false) {
+                              Navigator.pop(context);
                               showTopSnackBar(
                                 Overlay.of(context),
                                 CustomSnackBar.error(
@@ -172,8 +179,10 @@ class _LoginPageState extends State<LoginPage> {
                                 );
 
                                 if (isReg) {
+                                  Navigator.pop(context);
                                   nextScreenReplace(context, ServicePage());
                                 } else {
+                                  Navigator.pop(context);
                                   showTopSnackBar(
                                     Overlay.of(context),
                                     CustomSnackBar.error(
@@ -189,8 +198,10 @@ class _LoginPageState extends State<LoginPage> {
                                 );
 
                                 if (isReg) {
+                                  Navigator.pop(context);
                                   nextScreenReplace(context, ServicePage());
                                 } else {
+                                  Navigator.pop(context);
                                   showTopSnackBar(
                                     Overlay.of(context),
                                     CustomSnackBar.error(
