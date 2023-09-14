@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import '../../constant/color/color.dart';
 import '../../constant/style/style.dart';
 
@@ -19,7 +20,7 @@ class ServiceMenDetails extends StatelessWidget {
               top: 0,
               child: Container(
                 alignment: Alignment.topCenter,
-                height: size.height/2,
+                height: size.height / 2,
                 width: size.width,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -55,7 +56,9 @@ class ServiceMenDetails extends StatelessWidget {
                   width: size.width,
                   decoration: BoxDecoration(
                     color: AppColor.secondary,
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(34) , topLeft: Radius.circular(34)),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(34),
+                        topLeft: Radius.circular(34)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
@@ -80,24 +83,25 @@ class ServiceMenDetails extends StatelessWidget {
                             height: 16,
                           ),
                           Text('Address :',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
                           Text('Mobile Number :',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
                           Text('Experience :',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
                           Text('Work Details :',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
                           Text(
                             'This is weekdays design-your go-to for all the latest trends, no matter who you are.',
-                            style: AppStyle.bodyText.copyWith(color: Colors.white),
+                            style:
+                                AppStyle.bodyText.copyWith(color: Colors.white),
                           ),
                           const Spacing(),
                           Row(
@@ -106,29 +110,38 @@ class ServiceMenDetails extends StatelessWidget {
                               Center(
                                   child: ElevatedButton(
                                       style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              AppColor.primary),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  AppColor.primary),
                                           shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(16))),
-                                          minimumSize: MaterialStateProperty.all(
-                                              Size(size.width / 2.5, 37))),
-                                      onPressed: () {},
+                                                      BorderRadius.circular(
+                                                          16))),
+                                          minimumSize:
+                                              MaterialStateProperty.all(
+                                                  Size(size.width / 2.5, 37))),
+                                      onPressed: () async {
+                                        await FlutterPhoneDirectCaller
+                                            .callNumber("9399534994");
+                                      },
                                       child: Text('Call Now',
                                           style: AppStyle.h3
                                               .copyWith(color: Colors.white)))),
                               Center(
                                   child: ElevatedButton(
                                       style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              AppColor.primary),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  AppColor.primary),
                                           shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(16))),
-                                          minimumSize: MaterialStateProperty.all(
-                                              Size(size.width / 2.5, 37))),
+                                                      BorderRadius.circular(
+                                                          16))),
+                                          minimumSize:
+                                              MaterialStateProperty.all(
+                                                  Size(size.width / 2.5, 37))),
                                       onPressed: () {},
                                       child: Text('History',
                                           style: AppStyle.h3
@@ -139,8 +152,7 @@ class ServiceMenDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -213,9 +225,9 @@ class RectButtonSelected extends StatelessWidget {
           borderRadius: BorderRadius.circular(9), gradient: AppColor.gradient),
       child: Center(
           child: Text(
-            label,
-            style: AppStyle.text,
-          )),
+        label,
+        style: AppStyle.text,
+      )),
     );
   }
 }
@@ -238,9 +250,9 @@ class RectButton extends StatelessWidget {
           border: Border.all(color: AppColor.primary)),
       child: Center(
           child: Text(
-            label,
-            style: AppStyle.text.copyWith(color: Colors.white),
-          )),
+        label,
+        style: AppStyle.text.copyWith(color: Colors.white),
+      )),
     );
   }
 }
