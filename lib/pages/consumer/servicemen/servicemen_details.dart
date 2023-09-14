@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../constant/color/color.dart';
 import '../../constant/style/style.dart';
+import 'package:mysql1/mysql1.dart';
+
+
+late String name;
 
 class ServiceMenDetails extends StatelessWidget {
-  const ServiceMenDetails({Key? key}) : super(key: key);
+  ServiceMenDetails({Key? key , required this.result , required this.index}) : super(key: key);
+  final Results result;
+  final int index;
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,23 +82,23 @@ class ServiceMenDetails extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const ProductNameAndPrice(),
+                          ProductNameAndPrice(name: result.elementAt(index).values![0].toString()),
                           const SizedBox(
                             height: 16,
                           ),
-                          Text('Address :',
+                          Text('Address : ${result.elementAt(index).values![4].toString()}',
                               style: AppStyle.text
                                   .copyWith(color: Colors.white.withOpacity(.8))),
                           const Spacing(),
-                          Text('Mobile Number :',
+                          Text('Mobile Number : ${result.elementAt(index).values![6].toString()}',
                               style: AppStyle.text
                                   .copyWith(color: Colors.white.withOpacity(.8))),
                           const Spacing(),
-                          Text('Experience :',
+                          Text('Experience : ',
                               style: AppStyle.text
                                   .copyWith(color: Colors.white.withOpacity(.8))),
                           const Spacing(),
-                          Text('Work Details :',
+                          Text('Work Details : ',
                               style: AppStyle.text
                                   .copyWith(color: Colors.white.withOpacity(.8))),
                           const Spacing(),
@@ -147,6 +154,8 @@ class ServiceMenDetails extends StatelessWidget {
     );
   }
 }
+
+
 
 class TabTitle extends StatelessWidget {
   final String label;
@@ -248,7 +257,10 @@ class RectButton extends StatelessWidget {
 class ProductNameAndPrice extends StatelessWidget {
   const ProductNameAndPrice({
     Key? key,
+    required this.name,
   }) : super(key: key);
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -256,8 +268,8 @@ class ProductNameAndPrice extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          'Ayush Mishra',
+        Text(
+          name,
           style: AppStyle.h1Light,
         ),
         Text(
