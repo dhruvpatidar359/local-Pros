@@ -236,4 +236,30 @@ class DatabaseService {
     }
     print("set success");
   }
+
+  Future<Results> fetchServicemenData() async {
+    late Results result;
+    print("fetching servicemen data");
+
+    try {
+      result = await _connection.query(
+        'SELECT name,email,password,dob,address,gender,contactNumber FROM servicemen',
+      );
+      // databaseManager.close();
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      // await _connection.query(
+      //   'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
+      //   [email],
+      // );
+      result = await _connection.query(
+        'SELECT name,email,password,dob,address,gender,contactNumber FROM servicemen',
+      );
+    }
+
+    return result;
+  }
 }

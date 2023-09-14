@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/consumer/servicemen/servicemen_details.dart';
+import 'package:mysql1/mysql1.dart';
 
 class CustomCard extends StatelessWidget {
+  const CustomCard({Key? key, required this.result , required this.index}) : super(key: key);
+  final Results result;
+  final int index;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        nextScreen(context, ServiceMenDetails());
+        nextScreen(context, ServiceMenDetails(index: index,result: result,));
       },
       child: Card(
         elevation: 4, // Controls the shadow intensity
@@ -36,7 +41,7 @@ class CustomCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ayush Mishra', // Replace with person's name
+                    result.elementAt(index).values![0].toString(), // Replace with person's name
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
