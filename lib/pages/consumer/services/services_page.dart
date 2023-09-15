@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/consumer/services/service_list.dart';
+import 'package:mysql1/mysql1.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../../../database/database_service.dart';
 import '../profile/profile_consumer.dart';
 import '../servicemen/service_men_list.dart';
 
 class ServicePage extends StatefulWidget {
   const ServicePage({Key? key}) : super(key: key);
+
 
   @override
   State<ServicePage> createState() => _ServicePageState();
@@ -15,6 +18,24 @@ class ServicePage extends StatefulWidget {
 
 class _ServicePageState extends State<ServicePage> {
   var _currentIndex = 0;
+  late Results result;
+  int count = 0;
+  DatabaseService databaseService = DatabaseService();
+
+  void getDetails() async{
+    result = await databaseService.fetchServicemenData();
+    for (var row in result) {
+      count++;
+    }
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDetails();
+  }
 
   @override
   Widget build(BuildContext context) {

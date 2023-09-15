@@ -262,4 +262,30 @@ class DatabaseService {
 
     return result;
   }
+
+  Future<Results> fetchServiceData() async {
+    late Results result;
+    print("fetching service data");
+
+    try {
+      result = await _connection.query(
+        'SELECT ServiceId,Price,ServiceType,ServiceDescription FROM services',
+      );
+      // databaseManager.close();
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      // await _connection.query(
+      //   'SELECT name,email,password,dob,address FROM consumer WHERE email = ?',
+      //   [email],
+      // );
+      result = await _connection.query(
+        'SELECT ServiceId,Price,ServiceType,ServiceDescription FROM services',
+      );
+    }
+
+    return result;
+  }
 }
