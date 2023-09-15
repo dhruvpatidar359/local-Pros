@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/login/login.dart';
+import 'package:localpros/wingets/loading.dart';
 
 import 'edit_consumer_details.dart';
 
@@ -142,25 +144,28 @@ class ProfileConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Card(
-                        color: Colors.white70,
-                        margin: const EdgeInsets.only(
-                            left: 35, right: 35, bottom: 10),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const ListTile(
-                          leading: Icon(
-                            Icons.add_reaction_sharp,
-                            color: Colors.black54,
-                          ),
-                          title: Text(
-                            'Invite a Friend',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black54,
+                      GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          color: Colors.white70,
+                          margin: const EdgeInsets.only(
+                              left: 35, right: 35, bottom: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          child: const ListTile(
+                            leading: Icon(
+                              Icons.add_reaction_sharp,
+                              color: Colors.black54,
+                            ),
+                            title: Text(
+                              'Invite a Friend',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: Colors.black54,
+                            ),
                           ),
                         ),
                       ),

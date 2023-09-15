@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../constant/color/color.dart';
 import '../../constant/style/style.dart';
 import 'package:mysql1/mysql1.dart';
 
-
 late String name;
 
 class ServiceMenDetails extends StatelessWidget {
-  ServiceMenDetails({Key? key , required this.result , required this.index}) : super(key: key);
+  ServiceMenDetails({Key? key, required this.result, required this.index})
+      : super(key: key);
   final Results result;
   final int index;
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ServiceMenDetails extends StatelessWidget {
               top: 0,
               child: Container(
                 alignment: Alignment.topCenter,
-                height: size.height/2,
+                height: size.height / 2,
                 width: size.width,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -62,7 +62,9 @@ class ServiceMenDetails extends StatelessWidget {
                   width: size.width,
                   decoration: BoxDecoration(
                     color: AppColor.secondary,
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(34) , topLeft: Radius.circular(34)),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(34),
+                        topLeft: Radius.circular(34)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
@@ -82,29 +84,36 @@ class ServiceMenDetails extends StatelessWidget {
                               ),
                             ),
                           ),
-                          ProductNameAndPrice(name: result.elementAt(index).values![0].toString()),
+                          NameAndBar(
+                              name: result
+                                  .elementAt(index)
+                                  .values![0]
+                                  .toString()),
                           const SizedBox(
                             height: 16,
                           ),
-                          Text('Address : ${result.elementAt(index).values![4].toString()}',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                          Text(
+                              'Address : ${result.elementAt(index).values![4].toString()}',
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
-                          Text('Mobile Number : ${result.elementAt(index).values![6].toString()}',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                          Text(
+                              'Mobile Number : ${result.elementAt(index).values![6].toString()}',
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
                           Text('Experience : ',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
                           Text('Work Details : ',
-                              style: AppStyle.text
-                                  .copyWith(color: Colors.white.withOpacity(.8))),
+                              style: AppStyle.text.copyWith(
+                                  color: Colors.white.withOpacity(.8))),
                           const Spacing(),
                           Text(
                             'This is weekdays design-your go-to for all the latest trends, no matter who you are.',
-                            style: AppStyle.bodyText.copyWith(color: Colors.white),
+                            style:
+                                AppStyle.bodyText.copyWith(color: Colors.white),
                           ),
                           const Spacing(),
                           Row(
@@ -113,14 +122,17 @@ class ServiceMenDetails extends StatelessWidget {
                               Center(
                                   child: ElevatedButton(
                                       style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              AppColor.primary),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  AppColor.primary),
                                           shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(16))),
-                                          minimumSize: MaterialStateProperty.all(
-                                              Size(size.width / 2.5, 37))),
+                                                      BorderRadius.circular(
+                                                          16))),
+                                          minimumSize:
+                                              MaterialStateProperty.all(
+                                                  Size(size.width / 2.5, 37))),
                                       onPressed: () {},
                                       child: Text('Call Now',
                                           style: AppStyle.h3
@@ -128,14 +140,17 @@ class ServiceMenDetails extends StatelessWidget {
                               Center(
                                   child: ElevatedButton(
                                       style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              AppColor.primary),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  AppColor.primary),
                                           shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(16))),
-                                          minimumSize: MaterialStateProperty.all(
-                                              Size(size.width / 2.5, 37))),
+                                                      BorderRadius.circular(
+                                                          16))),
+                                          minimumSize:
+                                              MaterialStateProperty.all(
+                                                  Size(size.width / 2.5, 37))),
                                       onPressed: () {},
                                       child: Text('History',
                                           style: AppStyle.h3
@@ -146,16 +161,13 @@ class ServiceMenDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
-            ),
+                )),
           ],
         ),
       ),
     );
   }
 }
-
-
 
 class TabTitle extends StatelessWidget {
   final String label;
@@ -222,9 +234,9 @@ class RectButtonSelected extends StatelessWidget {
           borderRadius: BorderRadius.circular(9), gradient: AppColor.gradient),
       child: Center(
           child: Text(
-            label,
-            style: AppStyle.text,
-          )),
+        label,
+        style: AppStyle.text,
+      )),
     );
   }
 }
@@ -247,15 +259,15 @@ class RectButton extends StatelessWidget {
           border: Border.all(color: AppColor.primary)),
       child: Center(
           child: Text(
-            label,
-            style: AppStyle.text.copyWith(color: Colors.white),
-          )),
+        label,
+        style: AppStyle.text.copyWith(color: Colors.white),
+      )),
     );
   }
 }
 
-class ProductNameAndPrice extends StatelessWidget {
-  const ProductNameAndPrice({
+class NameAndBar extends StatelessWidget {
+  const NameAndBar({
     Key? key,
     required this.name,
   }) : super(key: key);
@@ -264,19 +276,31 @@ class ProductNameAndPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           name,
           style: AppStyle.h1Light,
         ),
-        Text(
-          '5 ⭐',
-          style: AppStyle.h1Light
-              .copyWith(color: AppColor.primary, fontWeight: FontWeight.w600),
-        ),
+        RatingBar.builder(
+          initialRating: 3,
+          minRating: 1,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          ignoreGestures: true,
+          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          onRatingUpdate: (rating) {
+            // print(rating);
+          },
+        )
       ],
     );
   }
