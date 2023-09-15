@@ -227,7 +227,7 @@ class _ServicePageState extends State<ServicePage> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          nextScreen(context, ServiceList());
+                          nextScreen(context, ServiceList(index: 0,));
                         },
                         child: Column(
                           children: [
