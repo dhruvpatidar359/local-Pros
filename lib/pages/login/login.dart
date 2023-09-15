@@ -137,22 +137,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (BuildContext context) {
-                            //       return AlertDialog(
-                            //         backgroundColor: Colors.orange.shade50,
-                            //         content: Row(
-                            //           mainAxisAlignment:
-                            //               MainAxisAlignment.center,
-                            //           children: [
-                            //             CircularProgressIndicator(
-                            //               color: Colors.orange[900]!,
-                            //             ),
-                            //           ],
-                            //         ),
-                            //       );
-                            //     });
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {

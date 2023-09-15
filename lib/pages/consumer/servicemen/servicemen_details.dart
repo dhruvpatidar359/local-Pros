@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../constant/color/color.dart';
 import '../../constant/style/style.dart';
 import 'package:mysql1/mysql1.dart';
@@ -83,7 +84,7 @@ class ServiceMenDetails extends StatelessWidget {
                               ),
                             ),
                           ),
-                          ProductNameAndPrice(
+                          NameAndBar(
                               name: result
                                   .elementAt(index)
                                   .values![0]
@@ -265,8 +266,8 @@ class RectButton extends StatelessWidget {
   }
 }
 
-class ProductNameAndPrice extends StatelessWidget {
-  const ProductNameAndPrice({
+class NameAndBar extends StatelessWidget {
+  const NameAndBar({
     Key? key,
     required this.name,
   }) : super(key: key);
@@ -275,19 +276,31 @@ class ProductNameAndPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           name,
           style: AppStyle.h1Light,
         ),
-        Text(
-          '5 ⭐',
-          style: AppStyle.h1Light
-              .copyWith(color: AppColor.primary, fontWeight: FontWeight.w600),
-        ),
+        RatingBar.builder(
+          initialRating: 3,
+          minRating: 1,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          ignoreGestures: true,
+          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          onRatingUpdate: (rating) {
+            // print(rating);
+          },
+        )
       ],
     );
   }

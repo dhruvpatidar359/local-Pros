@@ -17,6 +17,7 @@ void main() async {
   String getPerson = prefs.getString('person') ?? '';
 
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: SafeArea(
       child: Scaffold(
           body: isLoggedIn == true
