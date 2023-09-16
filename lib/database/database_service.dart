@@ -269,7 +269,7 @@ class DatabaseService {
 
     try {
       result = await _connection.query(
-        'SELECT ServiceId,Price,ServiceType,ServiceDescription FROM services',
+        'SELECT ServiceId FROM services',
       );
       // databaseManager.close();
     } catch (e) {
@@ -282,7 +282,7 @@ class DatabaseService {
       //   [email],
       // );
       result = await _connection.query(
-        'SELECT ServiceId,Price,ServiceType,ServiceDescription FROM services',
+        'SELECT ServiceId FROM services',
       );
     }
 

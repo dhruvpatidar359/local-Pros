@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ServiceList extends StatefulWidget {
-  const ServiceList({Key? key , required this.index}) : super(key: key);
-  final int index;
+  const ServiceList({Key? key , required this.serviceId}) : super(key: key);
+  final int serviceId;
 
   @override
   State<ServiceList> createState() => _ServiceListState();

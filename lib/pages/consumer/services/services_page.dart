@@ -226,11 +226,10 @@ class _ServicePageState extends State<ServicePage> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        // databaseService.fetchServiceData();
                         nextScreen(
                             context,
                             ServiceList(
-                              index: 0,
+                              serviceId: 1,
                             ));
                       },
                       child: Column(
@@ -254,185 +253,155 @@ class _ServicePageState extends State<ServicePage> {
                         ],
                       ),
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/cooler.png'),
+                    GestureDetector(
+                      onTap: () {
+                        nextScreen(context, ServiceList(serviceId: 2));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/cooler.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          'Cooler Repair',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                          Text(
+                            'Cooler Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/wash.png'),
+                    GestureDetector(
+                      onTap: () {
+                        nextScreen(context, ServiceList(serviceId: 3));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/wash.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          'Appliances',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                          Text(
+                            'Appliances',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/socket.png'),
+                    GestureDetector(
+                      onTap: () {
+                        nextScreen(context, ServiceList(serviceId: 4));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/socket.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          'Switch Repair',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                          Text(
+                            'Switch Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/plug.png'),
+                    GestureDetector(
+                      onTap: () {
+                        nextScreen(context, ServiceList(serviceId: 5));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/plug.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          'Electronics',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                          Text(
+                            'Electronics',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/wiring.png'),
+                    GestureDetector(
+                      onTap: () {
+                        nextScreen(context, ServiceList(serviceId: 6));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/wiring.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          'Wiring Repair',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                          Text(
+                            'Wiring Repair',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/pliers.png'),
+                    GestureDetector(
+                      onTap: () {
+                        nextScreen(context, ServiceList(serviceId: 7));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/pliers.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          'Connections',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/ac.png'),
+                          Text(
+                            'Connections',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ),
-                        ),
-                        Text(
-                          'AC Repair',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/ac.png'),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'AC Repair',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/ac.png'),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'AC Repair',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
