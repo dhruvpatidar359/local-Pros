@@ -243,7 +243,7 @@ class DatabaseService {
 
     try {
       result = await _connection.query(
-        'SELECT name,email,password,dob,address,gender,contactNumber FROM servicemen',
+        'SELECT name,email,password,dob,address,gender,contactNumber,experince,rating FROM servicemen',
       );
       // databaseManager.close();
     } catch (e) {
@@ -286,6 +286,11 @@ class DatabaseService {
       );
     }
 
+    // print(result);
+    // print("working");
+
     return result;
   }
+
+  Future<List<String>> fetchTags() {}
 }

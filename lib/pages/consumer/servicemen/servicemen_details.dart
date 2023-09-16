@@ -84,11 +84,11 @@ class ServiceMenDetails extends StatelessWidget {
                               ),
                             ),
                           ),
-                          NameAndBar(
-                              name: result
-                                  .elementAt(index)
-                                  .values![0]
-                                  .toString()),
+                          NameAndRatingBar(
+                            name: result.elementAt(index).values![0].toString(),
+                            index: index,
+                            result: result,
+                          ),
                           const SizedBox(
                             height: 16,
                           ),
@@ -102,7 +102,8 @@ class ServiceMenDetails extends StatelessWidget {
                               style: AppStyle.text.copyWith(
                                   color: Colors.white.withOpacity(.8))),
                           const Spacing(),
-                          Text('Experience : ',
+                          Text(
+                              'Experience : ${result.elementAt(index).values![7].toString()}',
                               style: AppStyle.text.copyWith(
                                   color: Colors.white.withOpacity(.8))),
                           const Spacing(),
@@ -266,10 +267,16 @@ class RectButton extends StatelessWidget {
   }
 }
 
-class NameAndBar extends StatelessWidget {
-  const NameAndBar({
+class NameAndRatingBar extends StatelessWidget {
+  var index;
+
+  var result;
+
+  NameAndRatingBar({
     Key? key,
     required this.name,
+    required this.index,
+    required this.result,
   }) : super(key: key);
 
   final String name;
@@ -286,8 +293,7 @@ class NameAndBar extends StatelessWidget {
           style: AppStyle.h1Light,
         ),
         RatingBar.builder(
-          initialRating: 3,
-          minRating: 1,
+          initialRating: result.elementAt(index).values![8].toDouble(),
           direction: Axis.horizontal,
           allowHalfRating: true,
           itemCount: 5,
