@@ -22,27 +22,32 @@ class _ServiceMenListState extends State<ServiceMenList> {
       count++;
     }
     print(count);
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getDetails();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: count,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomCard(result: result, index: index,),
-          );
-        },
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: count,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomCard(
+                result: result,
+                index: index,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
