@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:localpros/database/connection.dart';
 import 'package:localpros/database/database_service.dart';
@@ -7,13 +9,13 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 // import 'package:settings_ui/pages/settings.dart';
 
-class EditProfilePageConsumer extends StatefulWidget {
+class EditProfilePageServiceMen extends StatefulWidget {
   @override
-  _EditProfilePageConsumerState createState() =>
-      _EditProfilePageConsumerState();
+  _EditProfilePageServiceMenState createState() =>
+      _EditProfilePageServiceMenState();
 }
 
-class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
+class _EditProfilePageServiceMenState extends State<EditProfilePageServiceMen> {
   bool showPassword = false;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -22,6 +24,8 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
   TextEditingController dateOfBirth = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController genderController = TextEditingController();
+  TextEditingController experienceController = TextEditingController();
+  TextEditingController availableController = TextEditingController();
 
   DatabaseService databaseService = DatabaseService();
   late SharedPreferences prefs;
@@ -30,69 +34,91 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
   void getDetails() async {
     prefs = await SharedPreferences.getInstance();
     result = await databaseService.fetchProfile(
-        prefs.getString("email")!, "consumer");
+        prefs.getString("email")!, "servicemen");
 
     setState(() {
-      fullNameController.text = result.first.values![0].toString();
-      emailController.text = result.first.values![1].toString();
-      passwordController.text = result.first.values![2].toString();
-      locationController.text = result.first.values![4].toString();
-      dateOfBirth.text = result.first.values![3].toString().split(" ")[0];
-      contactController.text = result.first.values![6].toString();
+      fullNameController.text = result.first.values![3].toString();
+      emailController.text = result.first.values![0].toString();
+      passwordController.text = result.first.values![6].toString();
+      locationController.text = result.first.values![1].toString();
+      dateOfBirth.text = result.first.values![2].toString().split(" ")[0];
+      contactController.text = result.first.values![5].toString();
+      experienceController.text = result.first.values![7].toString();
+      availableController.text = result.first.values![8].toString();
 
-      String gender = result.first.values![5].toString();
+      String gender = result.first.values![4].toString();
       if (gender != "null") {
         genderController.text =
-            result.first.values![5].toString() == "m" ? "Male" : "Female";
+            result.first.values![4].toString() == "m" ? "Male" : "Female";
       } else {
-        genderController.text = result.first.values![5].toString();
+        genderController.text = result.first.values![4].toString();
       }
     });
 
-    print(result.first.values?[0]);
+    // print(result.first.values?[0]);
   }
 
   void setDetails() {
-    final dob = dateOfBirth.text.split("-");
-
-    if (dob[0].length == 4 &&
-        dob[1].length == 2 &&
-        dob[2].length == 2 &&
-        (genderController.text == "Male" ||
-            genderController.text == "male" ||
-            genderController.text == "female" ||
-            genderController.text == "Female" ||
-            genderController.text == "null")) {
-      String gender = genderController.text;
-      if (gender != "null") {
-        if (gender == "Male" || gender == 'male') {
-          gender = 'm';
+    String gender = "";
+    String? date = "";
+    if (dateOfBirth.text == 'null') {
+      if ((genderController.text == "Male" ||
+          genderController.text == "male" ||
+          genderController.text == "female" ||
+          genderController.text == "Female" ||
+          genderController.text == "null")) {
+        gender = genderController.text;
+        if (gender != "null") {
+          if (gender == "Male" || gender == 'male') {
+            gender = 'm';
+          } else {
+            gender = 'f';
+          }
         } else {
-          gender = 'f';
+          gender = "n";
+        }
+      }
+      date = null;
+    } else {
+      final dob = dateOfBirth.text.split("-");
+      if (dob[0].length == 4 &&
+          dob[1].length == 2 &&
+          dob[2].length == 2 &&
+          (genderController.text == "Male" ||
+              genderController.text == "male" ||
+              genderController.text == "female" ||
+              genderController.text == "Female" ||
+              genderController.text == "null")) {
+        gender = genderController.text;
+        if (gender != "null") {
+          if (gender == "Male" || gender == 'male') {
+            gender = 'm';
+          } else {
+            gender = 'f';
+          }
+        } else {
+          gender = "n";
         }
       } else {
-        gender = "n";
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: "Enter Correct Format YYYY-MM-DD",
+          ),
+        );
       }
-
-      databaseService.setDetails(
-          prefs.getString("email")!,
-          "consumer",
-          fullNameController.text,
-          passwordController.text,
-          dateOfBirth.text,
-          locationController.text,
-          gender,
-          contactController.text,
-          "",
-          "");
-    } else {
-      showTopSnackBar(
-        Overlay.of(context),
-        CustomSnackBar.error(
-          message: "Enter Correct Format YYYY-MM-DD",
-        ),
-      );
     }
+    databaseService.setDetails(
+        prefs.getString("email")!,
+        "servicemen",
+        fullNameController.text,
+        passwordController.text,
+        dateOfBirth.text,
+        locationController.text,
+        gender,
+        contactController.text,
+        experienceController.text,
+        availableController.text);
   }
 
   @override
@@ -228,6 +254,32 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                   ),
                   focusColor: Colors.blue,
                   labelText: "Contacts",
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: experienceController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "Experience",
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: availableController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  focusColor: Colors.blue,
+                  labelText: "Availablity",
                 ),
               ),
               SizedBox(

@@ -5,7 +5,7 @@ import 'package:mysql1/mysql1.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../database/database_service.dart';
-import '../profile/profile_consumer.dart';
+import '../profile/profile.dart';
 import '../servicemen/service_men_list.dart';
 
 class ServicePage extends StatefulWidget {
@@ -410,7 +410,7 @@ class _ServicePageState extends State<ServicePage> {
                 ? ServiceMenList()
                 : _currentIndex == 2
                     ? Container()
-                    : ProfileConsumer(),
+                    : Profile(),
       ),
     );
   }

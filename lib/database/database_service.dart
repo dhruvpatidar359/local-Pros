@@ -171,7 +171,7 @@ class DatabaseService {
 
       try {
         result = await _connection.query(
-          'SELECT name,email,password,dob,address FROM servicemen WHERE email = ?',
+          'SELECT email,address,dob ,name,gender,contactNumber,password,experience,available FROM servicemen WHERE email = ?',
           [email],
         );
       } catch (e) {
@@ -180,7 +180,7 @@ class DatabaseService {
         await databaseManager.initialize();
         _connection = DatabaseManager().connection;
         result = await _connection.query(
-          'SELECT name,email,password,dob,address FROM servicemen WHERE email = ?',
+          'SELECT email,address,dob ,name,gender,contactNumber,password,experience,available FROM servicemen WHERE email = ?',
           [email],
         );
       }
@@ -197,10 +197,13 @@ class DatabaseService {
       String dob,
       String location,
       String gender,
-      String contact) async {
+      String contact,
+      String experience,
+      String available) async {
     if (userType == 'consumer') {
       try {
         print(gender);
+
         await _connection.query(
           'update consumer set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ? where email = ?',
           [name, password, dob, location, gender, contact, email],
@@ -220,8 +223,18 @@ class DatabaseService {
     } else {
       try {
         await _connection.query(
-          'update servicemen set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ? where email = ?',
-          [name, password, dob, location, gender, contact, email],
+          'update servicemen set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ?,experience = ? ,available= ? where email = ?',
+          [
+            name,
+            password,
+            dob,
+            location,
+            gender,
+            contact,
+            experience,
+            available,
+            email
+          ],
         );
       } catch (e) {
         print(e);
@@ -229,8 +242,18 @@ class DatabaseService {
         await databaseManager.initialize();
         _connection = DatabaseManager().connection;
         await _connection.query(
-          'update servicemen set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ? where email = ?',
-          [name, password, dob, location, gender, contact, email],
+          'update servicemen set name = ?,password = ? ,dob = ?,address = ?, gender = ?,contactNumber = ?,experience = ? ,available= ? where email = ?',
+          [
+            name,
+            password,
+            dob,
+            location,
+            gender,
+            contact,
+            experience,
+            available,
+            email
+          ],
         );
       }
     }
@@ -243,7 +266,7 @@ class DatabaseService {
 
     try {
       result = await _connection.query(
-        'SELECT name,email,dob,address,gender,contactNumber,experince,rating,available FROM servicemen',
+        'SELECT name,email,dob,address,gender,contactNumber,experience,rating,available FROM servicemen',
       );
       // databaseManager.close();
     } catch (e) {
@@ -256,7 +279,7 @@ class DatabaseService {
       //   [email],
       // );
       result = await _connection.query(
-        'SELECT name,email,dob,address,gender,contactNumber,experince,rating,available FROM servicemen',
+        'SELECT name,email,dob,address,gender,contactNumber,experience,rating,available FROM servicemen',
       );
     }
 

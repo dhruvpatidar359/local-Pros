@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/consumer/profile/profile.dart';
 import 'package:localpros/pages/servicemen/notificatons.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -162,7 +163,11 @@ class _ServiceMenState extends State<ServiceMen> {
               ],
             ),
           ),
-          body: _currentIndex == 0 ? Notifications() : Container(),
+          body: _currentIndex == 0
+              ? Notifications()
+              : Container(
+                  child: Profile(),
+                ),
         ),
       ),
     );

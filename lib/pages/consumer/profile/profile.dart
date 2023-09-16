@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/consumer/servicemen/edit_servicemen_details.dart';
 import 'package:localpros/pages/login/login.dart';
-import 'package:localpros/wingets/loading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'edit_consumer_details.dart';
 
-class ProfileConsumer extends StatelessWidget {
+class Profile extends StatelessWidget {
   DatabaseService databaseService = DatabaseService();
 
   @override
@@ -124,8 +124,14 @@ class ProfileConsumer extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
                         child: GestureDetector(
-                          onTap: () {
-                            nextScreen(context, EditProfilePageConsumer());
+                          onTap: () async {
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            String getPerson = prefs.getString('person') ?? '';
+                            if (getPerson == 'consumer')
+                              nextScreen(context, EditProfilePageConsumer());
+                            else
+                              nextScreen(context, EditProfilePageServiceMen());
                           },
                           child: const ListTile(
                             leading: Icon(

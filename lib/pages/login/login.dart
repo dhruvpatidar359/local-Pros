@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:localpros/database/connection.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/servicemen/servicemen.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -164,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                 if (isReg) {
                                   Navigator.pop(context);
-                                  nextScreenReplace(context, ServicePage());
+                                  nextScreenReplace(context, ServiceMen());
                                 } else {
                                   Navigator.pop(context);
                                   showTopSnackBar(
