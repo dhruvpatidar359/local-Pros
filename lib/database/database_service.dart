@@ -292,5 +292,30 @@ class DatabaseService {
     return result;
   }
 
-  Future<List<String>> fetchTags() {}
+  Future<List<String>> fetchTags(String email) async {
+    late Results result;
+    List<String> tags = [];
+
+    try {
+      result = await _connection.query(
+        'SELECT tag FROM tags where email = ?',
+        [email],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      result = await _connection.query(
+        'SELECT tag FROM tags where email = ?',
+        [email],
+      );
+    }
+
+    for (int i = 0; i < result.length; i++) {
+      tags.add(result.elementAt(i).elementAt(0).toString());
+    }
+    print(tags);
+    return tags;
+  }
 }
