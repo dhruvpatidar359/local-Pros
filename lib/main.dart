@@ -18,13 +18,13 @@ void main() async {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: SafeArea(
-      child: Scaffold(
-          body: isLoggedIn == true
-              ? getPerson == 'consumer'
-                  ? ServicePage()
-                  : ServiceMen()
-              : IntroSliderDemo()),
-    ),
+    home: Scaffold(
+        body: SafeArea(
+      child: isLoggedIn == true
+          ? getPerson == 'consumer'
+              ? ServicePage()
+              : ServiceMen()
+          : IntroSliderDemo(),
+    )),
   ));
 }
