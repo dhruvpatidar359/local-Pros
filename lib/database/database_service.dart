@@ -372,4 +372,26 @@ class DatabaseService {
     print(tags);
     return tags;
   }
+
+
+  Future<Results> SearchService(String servicename) async {
+    late Results result;
+
+    try {
+      result = await _connection.query(
+        'SELECT subservice,servicename,description,price FROM subservice WHERE servicename = ?',
+        [servicename],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      result = await _connection.query(
+        'SELECT subservice,servicename,description,price FROM subservice WHERE servicename = ?',
+        [servicename],
+      );
+    }
+    return result;
+  }
 }
