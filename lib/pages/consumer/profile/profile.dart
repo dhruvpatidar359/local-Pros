@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/servicemen/edit_servicemen_details.dart';
 import 'package:localpros/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../servicemen/edit_servicemen_details.dart';
 import 'edit_consumer_details.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   DatabaseService databaseService = DatabaseService();
+
+  String name = "";
+
+  String email = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) => {
+          setState(() {
+            name = prefs.getString("name") ?? "";
+            email = prefs.getString("email") ?? "";
+          })
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +65,9 @@ class Profile extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      "Ayush Mishra",
+                      name,
                       style:
                           TextStyle(fontWeight: FontWeight.w900, fontSize: 26),
                     )
@@ -53,7 +75,7 @@ class Profile extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [Text("@peakyBlinders")],
+                  children: [Text(email)],
                 ),
                 const SizedBox(
                   height: 15,

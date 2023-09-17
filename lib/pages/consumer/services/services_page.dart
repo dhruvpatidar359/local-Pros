@@ -3,6 +3,7 @@ import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/consumer/services/service_list.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../database/database_service.dart';
 import '../profile/profile.dart';
@@ -20,6 +21,8 @@ class _ServicePageState extends State<ServicePage> {
   late Results result;
   int count = 0;
   DatabaseService databaseService = DatabaseService();
+  String name = "";
+  String email = "";
 
   void getDetails() async {
     result = await databaseService.fetchServicemenData();
@@ -33,6 +36,13 @@ class _ServicePageState extends State<ServicePage> {
     // TODO: implement initState
     super.initState();
     getDetails();
+    // initShared();
+    SharedPreferences.getInstance().then((prefs) => {
+          setState(() {
+            name = prefs.getString("name") ?? "";
+            email = prefs.getString("email") ?? "";
+          })
+        });
   }
 
   @override
@@ -135,7 +145,7 @@ class _ServicePageState extends State<ServicePage> {
               height: 15,
             ),
             Text(
-              'Ayush Mishra',
+              name,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -144,7 +154,7 @@ class _ServicePageState extends State<ServicePage> {
               ),
             ),
             Text(
-              'ayush@gmail.com',
+              email,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
