@@ -78,57 +78,58 @@ class DatabaseService {
       late Results result;
       try {
         result = await _connection.query(
-          'SELECT email FROM consumer WHERE email = ? AND password = ?',
+          'SELECT email,name FROM consumer WHERE email = ? AND password = ?',
           [email, password],
         );
-        await prefs.setString('email', email);
-        await prefs.setBool("isLoggedIn", true);
-        await prefs.setString('person', userType);
-        print(prefs.getBool("isLoggedIn"));
       } catch (e) {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
         _connection = DatabaseManager().connection;
         result = await _connection.query(
-          'SELECT email FROM consumer WHERE email = ? AND password = ?',
+          'SELECT email,name FROM consumer WHERE email = ? AND password = ?',
           [email, password],
         );
       }
-      await prefs.setString('email', email);
-      await prefs.setBool("isLoggedIn", true);
-      await prefs.setString('person', userType);
+
+      bool isReg = result.isNotEmpty;
+      if (isReg) {
+        await prefs.setString('email', email);
+        await prefs.setBool("isLoggedIn", true);
+        await prefs.setString('person', userType);
+        await prefs.setString('name', result.first.values![1].toString());
+      }
+
       print(prefs.getBool("isLoggedIn"));
-      return result.isNotEmpty;
+      return isReg;
     } else {
       late Results result;
       try {
         result = await _connection.query(
-          'SELECT email FROM servicemen WHERE email = ? AND password = ?',
+          'SELECT email,name FROM servicemen WHERE email = ? AND password = ?',
           [email, password],
         );
-        await prefs.setString('email', email);
-        await prefs.setBool("isLoggedIn", true);
-        await prefs.setString('person', userType);
-        print(prefs.getBool("isLoggedIn"));
       } catch (e) {
         print(e);
         print("reinit database");
         await databaseManager.initialize();
         _connection = DatabaseManager().connection;
         result = await _connection.query(
-          'SELECT email FROM servicemen WHERE email = ? AND password = ?',
+          'SELECT email,name FROM servicemen WHERE email = ? AND password = ?',
           [email, password],
         );
       }
 
-      await prefs.setString('email', email);
-      await prefs.setBool("isLoggedIn", true);
-      await prefs.setString('person', userType);
-      print(prefs.getBool("isLoggedIn"));
+      bool isReg = result.isNotEmpty;
+      if (isReg) {
+        await prefs.setString('email', email);
+        await prefs.setBool("isLoggedIn", true);
+        await prefs.setString('person', userType);
+        await prefs.setString('name', result.first.values![1].toString());
+      }
 
       log("User has been logged : + ${result.isNotEmpty}");
-      return result.isNotEmpty;
+      return isReg;
     }
   }
 
@@ -137,6 +138,8 @@ class DatabaseService {
     await prefs.setString('email', '');
     await prefs.setBool("isLoggedIn", false);
     await prefs.setString('person', '');
+    await prefs.setString('name', "");
+    log("logged out");
   }
 
   Future<Results> fetchProfile(String email, String userType) async {
