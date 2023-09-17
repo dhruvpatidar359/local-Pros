@@ -5,6 +5,8 @@ import 'package:mysql1/mysql1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
+import '../../../wingets/loading.dart';
 // import 'package:settings_ui/pages/settings.dart';
 
 class EditProfilePageConsumer extends StatefulWidget {
@@ -26,11 +28,13 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
   DatabaseService databaseService = DatabaseService();
   late SharedPreferences prefs;
   late Results result;
+  bool isready = false;
 
   void getDetails() async {
     prefs = await SharedPreferences.getInstance();
     result = await databaseService.fetchProfile(
         prefs.getString("email")!, "consumer");
+    isready = true;
 
     setState(() {
       fullNameController.text = result.first.values![0].toString();
@@ -131,7 +135,7 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
           ),
         ],
       ),
-      body: Container(
+      body: isready ? Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(
           onTap: () {
@@ -308,7 +312,9 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
                       padding: MaterialStatePropertyAll(
                           EdgeInsets.symmetric(horizontal: 50)),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text("CANCEL",
                         style: TextStyle(
                             fontSize: 14,
@@ -338,7 +344,8 @@ class _EditProfilePageConsumerState extends State<EditProfilePageConsumer> {
             ],
           ),
         ),
-      ),
+      )
+          : Loading(),
     );
   }
 

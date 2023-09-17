@@ -35,6 +35,15 @@ class _ServiceListState extends State<ServiceList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Select Service',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: isready ? ListView.builder(
         itemCount: count,
         itemBuilder: (context, index) {
@@ -62,26 +71,46 @@ class GeoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey.shade100,
-      child: ListTile(
-        leading: Image.asset('assets/images/ac.png'),
-        title: Text(
-            title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ListTile(
+            focusColor: Colors.red,
+            hoverColor: Colors.red,
+            splashColor: Colors.red,
+            leading: Image.asset('assets/images/ac.png'),
+            title: Text(
+                title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            subtitle: Text(description),
+            trailing: Text(
+                '₹'+price,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+            ),
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.blue, strokeAlign:15),
+            // ),
           ),
-        ),
-        subtitle: Text(description),
-        trailing: Text(
-            '₹'+price,
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
+          SizedBox(height: 5,),
+          ElevatedButton(
+              onPressed: () {
+
+              },
+            child: Text('Add to Cart'),
+            style: ButtonStyle(
+              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+              backgroundColor: MaterialStatePropertyAll(Colors.blue),
+            ),
           ),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.blue, strokeAlign:12),
-        ),
+        ],
       ),
     );
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
-import 'package:localpros/pages/consumer/servicemen/edit_servicemen_details.dart';
 import 'package:localpros/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../servicemen/edit_servicemen_details.dart';
 import 'edit_consumer_details.dart';
 
 class Profile extends StatelessWidget {
