@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 
 import '../../../database/database_service.dart';
+import '../../../wingets/loading.dart';
 import 'custom_card_servicemenlist.dart';
 
 class ServiceMenList extends StatefulWidget {
@@ -14,6 +15,7 @@ class ServiceMenList extends StatefulWidget {
 class _ServiceMenListState extends State<ServiceMenList> {
   late Results result;
   DatabaseService databaseService = DatabaseService();
+  bool isready = false;
   int count = 0;
   void getDetails() async {
     result = await databaseService.fetchServicemenData();
@@ -21,6 +23,7 @@ class _ServiceMenListState extends State<ServiceMenList> {
     for (var row in result) {
       count++;
     }
+    isready = true;
     print(count);
     setState(() {});
   }
@@ -36,7 +39,7 @@ class _ServiceMenListState extends State<ServiceMenList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView.builder(
+        child: isready ? ListView.builder(
           itemCount: count,
           itemBuilder: (context, index) {
             return Padding(
@@ -47,7 +50,8 @@ class _ServiceMenListState extends State<ServiceMenList> {
               ),
             );
           },
-        ),
+        )
+            : Loading(),
       ),
     );
   }

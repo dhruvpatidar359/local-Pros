@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:localpros/database/database_service.dart';
+import 'package:localpros/wingets/loading.dart';
 import '../../constant/color/color.dart';
 import '../../constant/style/style.dart';
 import 'package:mysql1/mysql1.dart';
@@ -22,10 +23,12 @@ class ServiceMenDetails extends StatefulWidget {
 class _ServiceMenDetailsState extends State<ServiceMenDetails> {
   List<String> tags = [];
   DatabaseService databaseService = DatabaseService();
+  bool isready = false;
 
   Future<void> fetchTags() async {
     final t = await databaseService.fetchTags(
         '${widget.result.elementAt(widget.index).values![1].toString()}');
+    isready = true;
     setState(() {
       tags = t;
     });
@@ -43,7 +46,7 @@ class _ServiceMenDetailsState extends State<ServiceMenDetails> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: isready ? Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
@@ -225,7 +228,8 @@ class _ServiceMenDetailsState extends State<ServiceMenDetails> {
                   )),
             ],
           ),
-        ),
+        )
+            : Loading(),
       ),
     );
   }
