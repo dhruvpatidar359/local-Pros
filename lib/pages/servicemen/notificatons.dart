@@ -29,62 +29,53 @@ class GeoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        nextScreen(context, NotificationInformation());
-      },
-      child: Card(
-        elevation: 5,
-        color: Colors.blue.shade50,
-        shadowColor: Colors.blue,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/ac_2.webp"),
+    return Container(
+      color: Colors.grey.shade100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ListTile(
+            onTap: () {
+              nextScreen(context, NotificationInformation());
+            },
+            focusColor: Colors.red,
+            hoverColor: Colors.red,
+            splashColor: Colors.red,
+            leading: Image.asset('assets/images/ac_2.webp'),
+            title: Text(
+              'Deep AC Clean',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            subtitle: Text('Price:'),
+            trailing: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Time Slot:',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
-                  borderRadius: BorderRadius.circular(15),
                 ),
-              ),
-              SizedBox(
-                width: 30,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Deep clean AC split',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Text(
-                    'Price: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Text(
-                    'Time Slot:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                SizedBox(height: 3,),
+                Container(
+                  // height: 25,
+                  // width: 100,
+                  child: Text('6pm - 7pm'),
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.blue, strokeAlign:12),
+            ),
           ),
-        ),
+
+        ],
       ),
     );
   }

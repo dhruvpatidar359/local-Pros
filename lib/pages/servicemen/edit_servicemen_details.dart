@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:localpros/database/connection.dart';
 import 'package:localpros/database/database_service.dart';
+import 'package:localpros/wingets/loading.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -17,6 +18,7 @@ class EditProfilePageServiceMen extends StatefulWidget {
 
 class _EditProfilePageServiceMenState extends State<EditProfilePageServiceMen> {
   bool showPassword = false;
+  bool isready = false;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -35,6 +37,7 @@ class _EditProfilePageServiceMenState extends State<EditProfilePageServiceMen> {
     prefs = await SharedPreferences.getInstance();
     result = await databaseService.fetchProfile(
         prefs.getString("email")!, "servicemen");
+    isready = true;
 
     setState(() {
       fullNameController.text = result.first.values![3].toString();
@@ -131,7 +134,7 @@ class _EditProfilePageServiceMenState extends State<EditProfilePageServiceMen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isready ? Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
@@ -391,7 +394,8 @@ class _EditProfilePageServiceMenState extends State<EditProfilePageServiceMen> {
           ),
         ),
       ),
-    );
+    )
+        : Loading();
   }
 
   Widget buildTextField(

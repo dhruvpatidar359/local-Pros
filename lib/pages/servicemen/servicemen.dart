@@ -33,6 +33,7 @@ class _ServiceMenState extends State<ServiceMen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue.shade300,
@@ -40,7 +41,7 @@ class _ServiceMenState extends State<ServiceMen> {
               ? Text(
                   'Notifications',
                   style: GoogleFonts.lora(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.w600,
                   ),
@@ -48,7 +49,7 @@ class _ServiceMenState extends State<ServiceMen> {
               : Text(
                   'Profile',
                   style: GoogleFonts.lora(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
