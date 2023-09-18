@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 
 class SearchResult extends StatelessWidget {
-  const SearchResult({Key? key , required this.results}) : super(key: key);
+  const SearchResult({Key? key, required this.results}) : super(key: key);
   final Results results;
 
   @override
@@ -36,28 +36,33 @@ class SearchResult extends StatelessWidget {
                   trailing: Column(
                     children: [
                       Text(
-                        '₹'+results.elementAt(0).values![3].toString(),
+                        '₹' + results.elementAt(0).values![3].toString(),
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
                         ),
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(
+                        height: 3,
+                      ),
                       Container(
-                        height: 25,
+                        height: 22,
                         width: 100,
                         child: ElevatedButton(
                           onPressed: () {},
                           child: Text(
                             'Add to Cart',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                           style: ButtonStyle(
-                            shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-                            backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                            shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5))),
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.blue),
                           ),
                         ),
                       ),
@@ -67,7 +72,6 @@ class SearchResult extends StatelessWidget {
                   //   borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.blue, strokeAlign:15),
                   // ),
                 ),
-
               ],
             ),
           ),

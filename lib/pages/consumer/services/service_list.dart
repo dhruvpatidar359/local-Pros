@@ -9,13 +9,15 @@ import '../../../database/database_service.dart';
 import '../../../wingets/loading.dart';
 
 class ServiceList extends StatefulWidget {
-  const ServiceList({Key? key , required this.serviceId}) : super(key: key);
+  const ServiceList({Key? key, required this.serviceId}) : super(key: key);
   final int serviceId;
 
   @override
   State<ServiceList> createState() => _ServiceListState();
 }
+
 TextEditingController searchEditingController = TextEditingController();
+
 class _ServiceListState extends State<ServiceList> {
   late Results result;
   DatabaseService databaseService = DatabaseService();
@@ -31,58 +33,63 @@ class _ServiceListState extends State<ServiceList> {
     isready = true;
     setState(() {});
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: !searchBoolean ? Text(
-          'Select Service',
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        )
-        : searchTextField(context),
-        actions: !searchBoolean ? [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  searchBoolean = true;
-                });
-              },
-              icon: Icon(Icons.search),
-          ),
-        ]
-        : [
-          IconButton(
-              onPressed: () {
-                setState((){
-                  searchBoolean = false;
-                });
-              },
-              icon: Icon(Icons.clear),
-          ),
-        ],
+        title: !searchBoolean
+            ? Text(
+                'Select Service',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              )
+            : searchTextField(context),
+        actions: !searchBoolean
+            ? [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      searchBoolean = true;
+                    });
+                  },
+                  icon: Icon(Icons.search),
+                ),
+              ]
+            : [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      searchBoolean = false;
+                    });
+                  },
+                  icon: Icon(Icons.clear),
+                ),
+              ],
         centerTitle: true,
       ),
-      body: isready ? ListView.builder(
-        itemCount: count,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GeoCard(
-                title: result.elementAt(index).values![1].toString(),
-                description: result.elementAt(index).values![2].toString(),
-                price: result.elementAt(index).values![3].toString()
-            ),
-          );
-        },
-      )
+      body: isready
+          ? ListView.builder(
+              itemCount: count,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GeoCard(
+                      title: result.elementAt(index).values![1].toString(),
+                      description:
+                          result.elementAt(index).values![2].toString(),
+                      price: result.elementAt(index).values![3].toString()),
+                );
+              },
+            )
           : Loading(),
     );
   }
@@ -95,10 +102,13 @@ Widget searchTextField(BuildContext context) {
       DatabaseService databaseService = DatabaseService();
       Results results = await databaseService.SearchService(value);
       print(results);
-      if(!results.isEmpty){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResult(results: results),));
-      }
-      else{
+      if (!results.isEmpty) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchResult(results: results),
+            ));
+      } else {
         showTopSnackBar(
           Overlay.of(context),
           CustomSnackBar.error(
@@ -114,16 +124,19 @@ Widget searchTextField(BuildContext context) {
       color: Colors.white,
       fontSize: 20,
     ),
-    textInputAction: TextInputAction.search, //Specify the action button on the keyboard
-    decoration: InputDecoration( //Style of TextField
-      enabledBorder: UnderlineInputBorder( //Default TextField border
-          borderSide: BorderSide(color: Colors.white)
-      ),
-      focusedBorder: UnderlineInputBorder( //Borders when a TextField is in focus
-          borderSide: BorderSide(color: Colors.white)
-      ),
+    textInputAction:
+        TextInputAction.search, //Specify the action button on the keyboard
+    decoration: InputDecoration(
+      //Style of TextField
+      enabledBorder: UnderlineInputBorder(
+          //Default TextField border
+          borderSide: BorderSide(color: Colors.white)),
+      focusedBorder: UnderlineInputBorder(
+          //Borders when a TextField is in focus
+          borderSide: BorderSide(color: Colors.white)),
       hintText: 'Search', //Text that is displayed when nothing is entered.
-      hintStyle: TextStyle( //Style of hintText
+      hintStyle: TextStyle(
+        //Style of hintText
         color: Colors.white60,
         fontSize: 20,
       ),
@@ -132,7 +145,12 @@ Widget searchTextField(BuildContext context) {
 }
 
 class GeoCard extends StatelessWidget {
-  const GeoCard({Key? key ,required this.title , required this.description , required this.price}) : super(key: key);
+  const GeoCard(
+      {Key? key,
+      required this.title,
+      required this.description,
+      required this.price})
+      : super(key: key);
   final String title;
   final String description;
   final String price;
@@ -149,7 +167,7 @@ class GeoCard extends StatelessWidget {
             splashColor: Colors.red,
             leading: Image.asset('assets/images/ac.png'),
             title: Text(
-                title,
+              title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -159,27 +177,30 @@ class GeoCard extends StatelessWidget {
             trailing: Column(
               children: [
                 Text(
-                    '₹'+price,
+                  '₹' + price,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                   ),
                 ),
-                SizedBox(height: 3,),
+                SizedBox(
+                  height: 3,
+                ),
                 Container(
-                  height: 25,
+                  height: 22,
                   width: 100,
                   child: ElevatedButton(
                     onPressed: () {},
                     child: Text(
-                        'Add to Cart',
+                      'Add to Cart',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 10,
                       ),
                     ),
                     style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5))),
                       backgroundColor: MaterialStatePropertyAll(Colors.blue),
                     ),
                   ),
@@ -190,7 +211,6 @@ class GeoCard extends StatelessWidget {
             //   borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.blue, strokeAlign:15),
             // ),
           ),
-
         ],
       ),
     );
