@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/consumer/cart/cart.dart';
 import 'package:localpros/pages/consumer/services/service_list.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -419,7 +420,7 @@ class _ServicePageState extends State<ServicePage> {
             : _currentIndex == 1
                 ? ServiceMenList()
                 : _currentIndex == 2
-                    ? Container()
+                    ? CartScreen()
                     : Profile(),
       ),
     );

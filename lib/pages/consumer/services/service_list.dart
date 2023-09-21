@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/consumer/services/search_result.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -30,6 +31,7 @@ class _ServiceListState extends State<ServiceList> {
     for (var row in result) {
       count++;
     }
+
     isready = true;
     setState(() {});
   }
@@ -82,11 +84,15 @@ class _ServiceListState extends State<ServiceList> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: GeoCard(
+                  child: subserviceCard(
                       title: result.elementAt(index).values![1].toString(),
                       description:
                           result.elementAt(index).values![2].toString(),
-                      price: result.elementAt(index).values![3].toString()),
+                      price: result.elementAt(index).values![3].toString(),
+                  subserviceId:result.elementAt(index).values![0].toString() ,
+                    serviceId: widget.serviceId.toString(),
+
+                  ),
                 );
               },
             )
@@ -144,16 +150,23 @@ Widget searchTextField(BuildContext context) {
   );
 }
 
-class GeoCard extends StatelessWidget {
-  const GeoCard(
+class subserviceCard extends StatelessWidget {
+  const subserviceCard(
       {Key? key,
       required this.title,
       required this.description,
-      required this.price})
+      required this.price,
+      required this.serviceId,
+        required this.subserviceId
+
+      })
       : super(key: key);
   final String title;
   final String description;
   final String price;
+  final String serviceId;
+  final String subserviceId;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -191,7 +204,12 @@ class GeoCard extends StatelessWidget {
                   height: 22,
                   width: 100,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final SharedPreferences prefs = await SharedPreferences.getInstance();
+                      String email = prefs.getString('email') ?? "";
+                      print("email $email  serviceId $serviceId sub $subserviceId");
+                      await  DatabaseService().addToCart(email, serviceId, subserviceId);
+                    },
                     child: Text(
                       'Add to Cart',
                       style: TextStyle(

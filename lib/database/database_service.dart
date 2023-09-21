@@ -394,4 +394,69 @@ class DatabaseService {
     }
     return result;
   }
+
+  Future<void> addToCart(String email,String serviceId , String subserviceId) async {
+    try {
+       await _connection.query(
+         'insert into cart (consumerEmail ,serviceId , subservice) values (?,?,?) ',
+         [email,serviceId,subserviceId],
+      );
+    } catch (e) {
+
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+
+      await _connection.query(
+        'insert into cart (consumerEmail ,serviceId , subservice) values (?,?,?) ',
+        [email,serviceId,subserviceId],
+      );
+    }
+  }
+
+
+  Future<Results> fetchCart(String email) async {
+    late Results result;
+    late String serviceID;
+    late String subservice;
+    late Results results2;
+    try {
+      result = await _connection.query(
+        'select serviceId,subservice from cart where consumerEmail  = ?',
+        [email],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      result = await _connection.query(
+        'select serviceId,subservice from cart where consumerEmail  = ?',
+        [email],
+      );
+    }
+    serviceID = result.elementAt(0).values![0].toString();
+    subservice = result.elementAt(0).values![1].toString();
+
+    try {
+      results2 = await _connection.query(
+        'select servicename,description,price from subservice where ( serviceId = ? ) AND ( subservice = ? )',
+        [serviceID,subservice],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      results2 = await _connection.query(
+        'select servicename,description,price from subservice where ( serviceId = ? ) AND ( subservice = ? )',
+        [serviceID,subservice],
+      );
+    }
+    return results2;
+  }
+
+
+
 }
