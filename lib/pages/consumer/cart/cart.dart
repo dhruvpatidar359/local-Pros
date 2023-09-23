@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/database/database_service.dart';
+import 'package:localpros/pages/orderconformconsumer.dart';
+import 'package:localpros/pages/servicemen/notification_information.dart';
+import 'package:localpros/pages/servicemen/notificatons.dart';
 import 'package:localpros/wingets/loading.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -203,7 +206,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // click kr na pa order section pa jay ga
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const orderconformconsumer()),);
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,
