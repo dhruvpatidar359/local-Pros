@@ -220,7 +220,6 @@ class subserviceCard extends StatelessWidget {
 
                         );
                       }
-
                     },
                     child: Text(
                       'Add to Cart',
