@@ -395,12 +395,14 @@ class DatabaseService {
     return result;
   }
 
-  Future<void> addToCart(String email,String serviceId , String subserviceId) async {
+  Future<bool> addToCart(String email,String serviceId , String subserviceId) async {
     try {
        await _connection.query(
          'insert into cart (consumerEmail ,serviceId , subservice) values (?,?,?) ',
          [email,serviceId,subserviceId],
+
       );
+       return true;
     } catch (e) {
 
       print(e);
@@ -411,7 +413,9 @@ class DatabaseService {
       await _connection.query(
         'insert into cart (consumerEmail ,serviceId , subservice) values (?,?,?) ',
         [email,serviceId,subserviceId],
+
       );
+      return false;
     }
   }
 

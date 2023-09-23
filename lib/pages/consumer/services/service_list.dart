@@ -208,7 +208,19 @@ class subserviceCard extends StatelessWidget {
                       final SharedPreferences prefs = await SharedPreferences.getInstance();
                       String email = prefs.getString('email') ?? "";
                       print("email $email  serviceId $serviceId sub $subserviceId");
-                      await  DatabaseService().addToCart(email, serviceId, subserviceId);
+                       bool isadded = await  DatabaseService().addToCart(email, serviceId, subserviceId);
+                      if(isadded == true) {
+                        showTopSnackBar(
+
+                          Overlay.of(context),
+                          CustomSnackBar.success(
+
+                            message: "Added To Cart",
+                          ),
+
+                        );
+                      }
+
                     },
                     child: Text(
                       'Add to Cart',
