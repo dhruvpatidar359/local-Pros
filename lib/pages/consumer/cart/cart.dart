@@ -18,7 +18,15 @@ class _CartScreenState extends State<CartScreen> {
   String name = "";
   bool isready = false;
   DatabaseService databaseService = DatabaseService();
-
+  double totalamount = 0.0;
+  void updateTotalPrice(){
+    totalamount = 0.0;
+    for(var item in result)
+    {
+      double Price = double.parse(item.first.values![2].toString());
+      totalamount += Price;
+    }
+  }
   void getData() async {
 
     result = await databaseService.fetchCart(email);
@@ -27,6 +35,8 @@ class _CartScreenState extends State<CartScreen> {
     });
     print(result);
     print(result.length);
+    updateTotalPrice();
+    print("totalamount: $totalamount");
 
   }
 
@@ -64,13 +74,15 @@ class _CartScreenState extends State<CartScreen> {
               showTopSnackBar(
                 Overlay.of(context),
                 CustomSnackBar.error(
-                  message: "Deleted",
+                  message: "Item Removed",
                 ),
               );
             }
 
+
             setState(() {
               result.removeAt(index);
+              updateTotalPrice();
             });
 
 
@@ -182,7 +194,7 @@ class _CartScreenState extends State<CartScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:[
               Text(
-                'Total:',
+                'Total: ₹${totalamount.toStringAsFixed(2)}',// Displaying total price here
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
