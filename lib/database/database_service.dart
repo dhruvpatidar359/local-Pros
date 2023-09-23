@@ -416,7 +416,7 @@ class DatabaseService {
   }
 
 
-  Future<Results> fetchCart(String email) async {
+  Future<List<Results>> fetchCart(String email) async {
     late Results result;
     late String serviceID;
     late String subservice;
@@ -436,12 +436,25 @@ class DatabaseService {
         [email],
       );
     }
-    serviceID = result.elementAt(0).values![0].toString();
-    subservice = result.elementAt(0).values![1].toString();
+
+
+   List<Results> resultList = [];
+   for(int i = 0 ; i < result.length ;i++) {
+     serviceID = result.elementAt(i).values![0].toString();
+     subservice = result.elementAt(i).values![1].toString();
+     resultList.add(await fetchServiceDetails(serviceID, subservice));
+   }
+
+    return resultList;
+  }
+
+
+  Future<Results> fetchServiceDetails(String serviceID,String subservice) async {
+    late Results results;
 
     try {
-      results2 = await _connection.query(
-        'select servicename,description,price from subservice where ( serviceId = ? ) AND ( subservice = ? )',
+      results = await _connection.query(
+        'select servicename,description,price,serviceId,subservice from subservice where ( serviceId = ? ) AND ( subservice = ? )',
         [serviceID,subservice],
       );
     } catch (e) {
@@ -449,12 +462,35 @@ class DatabaseService {
       print("reinit database");
       await databaseManager.initialize();
       _connection = DatabaseManager().connection;
-      results2 = await _connection.query(
-        'select servicename,description,price from subservice where ( serviceId = ? ) AND ( subservice = ? )',
+      results = await _connection.query(
+        'select servicename,description,price,serviceId,subservice  from subservice where ( serviceId = ? ) AND ( subservice = ? )',
         [serviceID,subservice],
       );
     }
-    return results2;
+
+    return results;
+  }
+
+  Future<bool> deleteCart(String email,String serviceID,String subserviceId) async {
+    late Results results;
+
+    try {
+      results = await _connection.query(
+        'delete from cart where ( serviceId = ? ) AND ( subservice = ? ) AND ( consumerEmail = ?) ',
+        [serviceID,subserviceId,email],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      results = await _connection.query(
+        'delete from cart where ( serviceId = ? ) AND ( subservice = ? ) AND ( consumerEmail = ?) ',
+        [serviceID,subserviceId,email],
+      );
+    }
+
+    return results.affectedRows == 0 ? false : true;
   }
 
 

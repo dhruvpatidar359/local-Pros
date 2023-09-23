@@ -3,6 +3,8 @@ import 'package:localpros/database/database_service.dart';
 import 'package:localpros/wingets/loading.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -11,10 +13,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
 
-  late Results result;
-  String sname = "";
-  String description = "";
-  String price = "";
+  late List<Results> result;
   String email = "";
   String name = "";
   bool isready = false;
@@ -23,13 +22,12 @@ class _CartScreenState extends State<CartScreen> {
   void getData() async {
 
     result = await databaseService.fetchCart(email);
-    sname = result.elementAt(0).values![0].toString();
-    description = result.elementAt(0).values![1].toString();
-    price = result.elementAt(0).values![2].toString();
-    isready = true;
     setState(() {
-
+      isready = true;
     });
+    print(result);
+    print(result.length);
+
   }
 
   @override
@@ -39,7 +37,8 @@ class _CartScreenState extends State<CartScreen> {
     SharedPreferences.getInstance().then((prefs) => {
       setState(() {
         email = prefs.getString("email") ?? "";
-        name = prefs.getString("name") ?? "";
+        name = prefs.getString('name') ?? "";
+
         getData();
       })
     });
@@ -52,9 +51,31 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return isready ? Scaffold(
       body: ListView.builder(
-        itemCount: 1,
+
+        itemCount: result.length,
         itemBuilder: (context, index) {
-          return subserviceCard(title: sname, description: description, price: price);
+          String title = result.elementAt(index).first.values![0].toString();
+          String description  = result.elementAt(index).first.values![1].toString();
+          String price  = result.elementAt(index).first.values![2].toString();
+          return subserviceCard(title: title, description: description, price: price, onRemove: () async {
+
+            bool isDeleted  = await databaseService.deleteCart(email, result.elementAt(index).first.values![3].toString(),result.elementAt(index).first.values![4].toString());
+            if(isDeleted == true) {
+              showTopSnackBar(
+                Overlay.of(context),
+                CustomSnackBar.error(
+                  message: "Deleted",
+                ),
+              );
+            }
+
+            setState(() {
+              result.removeAt(index);
+            });
+
+
+          },);
+
         },
       ),
       drawer: Drawer(
@@ -198,21 +219,25 @@ class subserviceCard extends StatelessWidget {
         required this.title,
         required this.description,
         required this.price,
-
+        required this.onRemove,
       })
       : super(key: key);
   final String title;
   final String description;
   final String price;
-
+  final VoidCallback onRemove;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey.shade100,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          ListTile(
+    return Card(
+        elevation: 4,
+        margin: EdgeInsets.all(16),
+        child:Container(
+          height: 100,
+          color: Colors.blue.shade100,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+           ListTile(
             focusColor: Colors.red,
             hoverColor: Colors.red,
             splashColor: Colors.red,
@@ -225,8 +250,9 @@ class subserviceCard extends StatelessWidget {
               ),
             ),
             subtitle: Text(description),
-            trailing: Column(
-              children: [
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
                 Text(
                   '₹' + price,
                   style: TextStyle(
@@ -235,14 +261,23 @@ class subserviceCard extends StatelessWidget {
                     fontSize: 22,
                   ),
                 ),
+                SizedBox(width: 3),
+                ElevatedButton(
+                    onPressed: onRemove,
+                    child: Text(
+                      'Remove',
+                      style: TextStyle(
+                        fontSize: 8.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                )
               ],
             ),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.blue, strokeAlign:15),
-            // ),
           ),
         ],
       ),
+    ),
     );
   }
 }
