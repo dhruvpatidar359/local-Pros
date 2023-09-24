@@ -245,7 +245,7 @@ class subserviceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         elevation: 4,
-        margin: EdgeInsets.all(16),
+        margin: EdgeInsets.all(14),
         child:Container(
           height: 100,
           color: Colors.blue.shade100,
@@ -266,6 +266,7 @@ class subserviceCard extends StatelessWidget {
             ),
             subtitle: Text(description),
             trailing: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
@@ -276,8 +277,9 @@ class subserviceCard extends StatelessWidget {
                     fontSize: 22,
                   ),
                 ),
-                SizedBox(width: 3),
+                SizedBox(width: 10),
                 ElevatedButton(
+                  style: ButtonStyle(shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
                     onPressed: onRemove,
                     child: Text(
                       'Remove',
@@ -286,7 +288,7 @@ class subserviceCard extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                )
+                ),
               ],
             ),
           ),
