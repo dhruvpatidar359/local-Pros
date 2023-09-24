@@ -286,6 +286,7 @@ class subserviceCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 8.0,
                         color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                 ),
