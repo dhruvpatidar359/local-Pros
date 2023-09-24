@@ -208,8 +208,10 @@ class _CartScreenState extends State<CartScreen> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>const orderconformconsumer()),);
                 },
-                style: ElevatedButton.styleFrom(
+                style:ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   primary: Colors.green,
+                  elevation: 2,
                 ),
                 child: Text(
                   'Checkout',
