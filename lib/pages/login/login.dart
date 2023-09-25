@@ -111,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                         bottom: BorderSide(
                                             color: Colors.grey[200]!))),
                                 child: TextField(
+                                  obscureText: true,
                                   controller: _passwordController,
                                   decoration: InputDecoration(
                                       hintText: "Password",

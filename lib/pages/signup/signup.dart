@@ -105,6 +105,7 @@ class SignUp extends StatelessWidget {
                                         bottom: BorderSide(
                                             color: Colors.grey[200]!))),
                                 child: TextField(
+                                  obscureText: true,
                                   controller: _passwordController,
                                   decoration: InputDecoration(
                                       hintText: "Password",
