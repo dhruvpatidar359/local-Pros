@@ -111,21 +111,21 @@ class _ServicePageState extends State<ServicePage> {
           SalomonBottomBarItem(
             icon: Icon(Icons.engineering),
             title: Text("Servicemen"),
-            selectedColor: Colors.pink,
+            selectedColor: Colors.blue,
           ),
 
           /// Search
           SalomonBottomBarItem(
             icon: Icon(Icons.shopping_cart),
             title: Text("Cart"),
-            selectedColor: Colors.orange,
+            selectedColor: Colors.blue,
           ),
 
           /// Profile
           SalomonBottomBarItem(
             icon: Icon(Icons.person),
             title: Text("Profile"),
-            selectedColor: Colors.teal,
+            selectedColor: Colors.blue,
           ),
         ],
       ),

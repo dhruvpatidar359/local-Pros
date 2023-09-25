@@ -25,6 +25,14 @@ class _LoginPageState extends State<LoginPage> {
 
   bool isSwitched = false;
   DatabaseService databaseService = DatabaseService();
+  bool passwordVisible = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    passwordVisible = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,12 +119,24 @@ class _LoginPageState extends State<LoginPage> {
                                         bottom: BorderSide(
                                             color: Colors.grey[200]!))),
                                 child: TextField(
-                                  obscureText: true,
+                                  obscureText: passwordVisible,
                                   controller: _passwordController,
                                   decoration: InputDecoration(
                                       hintText: "Password",
                                       hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none),
+                                      border: InputBorder.none,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        passwordVisible ? Icons.visibility : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          passwordVisible = !passwordVisible;
+                                        });
+                                      },
+                                    ),
+
+                                  ),
                                 ),
                               ),
                             ],

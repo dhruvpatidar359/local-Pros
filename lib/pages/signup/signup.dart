@@ -13,12 +13,21 @@ import '../login/login.dart';
 import '../servicemen/servicemen.dart';
 import 'email_verification.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   TextEditingController _emailController = TextEditingController();
+
   TextEditingController _passwordController = TextEditingController();
+
   TextEditingController _nameController = TextEditingController();
+
+  bool visiblePassword = false;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,12 +114,23 @@ class SignUp extends StatelessWidget {
                                         bottom: BorderSide(
                                             color: Colors.grey[200]!))),
                                 child: TextField(
-                                  obscureText: true,
+                                  obscureText: visiblePassword,
                                   controller: _passwordController,
                                   decoration: InputDecoration(
                                       hintText: "Password",
                                       hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none),
+                                      border: InputBorder.none,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                          visiblePassword ? Icons.visibility : Icons.visibility_off
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          visiblePassword = !visiblePassword;
+                                        });
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
