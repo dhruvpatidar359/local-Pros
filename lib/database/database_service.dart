@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:localpros/database/connection.dart';
 import 'package:mysql1/mysql1.dart';
@@ -508,7 +509,31 @@ class DatabaseService {
       results = await _connection.query(
         'insert into orderList (serviceId,subservice,orderStatus,bookingDate,servicemenEmail,consumerEmail) values (?,?,?,?,?,?) ',
         [serviceId, subservice, "pending", bookingDate, "", consumerEmail],
-      );
+      ).whenComplete(() async {
+        // Add that orderId and serviceId in notifications tables;
+        try {
+          Results r1 = await _connection.query('select orderId , serviceId from orderList GROUP BY orderId ORDER BY orderId DESC LIMIT 1');
+          String oId = r1.elementAt(0).values![0].toString();
+          String sId = r1.elementAt(0).values![1].toString();
+          Results r3 = await _connection.query('select ServiceType from services where ServiceId = ?',[sId]);
+          String stype = r3.elementAt(0).values![0].toString();
+          Results r2 = await _connection.query('insert into notifications (orderId,tag) values (?,?)',[oId,stype]);
+        }
+        catch (e){
+          print(e);
+          print("reinit database");
+          await databaseManager.initialize();
+          _connection = DatabaseManager().connection;
+          Results r1 = await _connection.query('select orderId , serviceId from orderList GROUP BY orderId ORDER BY orderId DESC LIMIT 1');
+          String oId = r1.elementAt(0).values![0].toString();
+          String sId = r1.elementAt(0).values![1].toString();
+          Results r3 = await _connection.query('select ServiceType from services where ServiceId = ?',[sId]);
+          String stype = r3.elementAt(0).values![0].toString();
+          Results r2 = await _connection.query('insert into notifications (orderId,tag) values (?,?)',[oId,stype]);        }
+      });
+
+
+
     } catch (e) {
       print(e);
       print("reinit database");
@@ -517,7 +542,26 @@ class DatabaseService {
       results = await _connection.query(
         'insert into orderList (serviceId,subservice,orderStatus,bookingDate,servicemenEmail,consumerEmail) values (?,?,?,?,?,?) ',
         [serviceId, subservice, "pending", bookingDate, "", consumerEmail],
-      );
+      ).whenComplete(() async {
+        try {
+          Results r1 = await _connection.query('select orderId , serviceId from orderList GROUP BY orderId ORDER BY orderId DESC LIMIT 1');
+          String oId = r1.elementAt(0).values![0].toString();
+          String sId = r1.elementAt(0).values![1].toString();
+          Results r3 = await _connection.query('select ServiceType from services where ServiceId = ?',[sId]);
+          String stype = r3.elementAt(0).values![0].toString();
+          Results r2 = await _connection.query('insert into notifications (orderId,tag) values (?,?)',[oId,stype]);        }
+        catch (e){
+          print(e);
+          print("reinit database");
+          await databaseManager.initialize();
+          _connection = DatabaseManager().connection;
+          Results r1 = await _connection.query('select orderId , serviceId from orderList GROUP BY orderId ORDER BY orderId DESC LIMIT 1');
+          String oId = r1.elementAt(0).values![0].toString();
+          String sId = r1.elementAt(0).values![1].toString();
+          Results r3 = await _connection.query('select ServiceType from services where ServiceId = ?',[sId]);
+          String stype = r3.elementAt(0).values![0].toString();
+          Results r2 = await _connection.query('insert into notifications (orderId,tag) values (?,?)',[oId,stype]);        }
+      });
     }
 
     return results.affectedRows == 0 ? false : true;
@@ -556,6 +600,39 @@ class DatabaseService {
     return map;
   }
 
+  Future<Map<ResultRow, Results>> fetchOrdersServicemen(
+      String email, String status) async {
+    late Results result;
+    late String serviceID;
+    late String subservice;
+
+    try {
+      result = await _connection.query(
+        'select serviceId,subservice,orderStatus,bookingDate,consumerEmail from orderList where servicemenEmail  = ? and (orderStatus = ? or orderStatus = ?)',
+        [email, status.split("|").first, status.split("|")[1]],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      result = await _connection.query(
+        'select serviceId,subservice,orderStatus,bookingDate,consumerEmail from orderList where servicemenEmail  = ? and orderStatus = ?',
+        [email, status],
+      );
+    }
+
+    Map<ResultRow, Results> map = {};
+    for (int i = 0; i < result.length; i++) {
+      serviceID = result.elementAt(i).values![0].toString();
+      subservice = result.elementAt(i).values![1].toString();
+      Results r = await fetchServiceDetails(serviceID, subservice);
+      map.putIfAbsent(result.elementAt(i), () => r);
+    }
+
+    return map;
+  }
+
   Future<String> fetchServicemenName(String email) async {
     late Results results;
 
@@ -575,5 +652,142 @@ class DatabaseService {
       );
     }
     return results.first.values![0].toString();
+  }
+
+  //notification fetech
+  Future<List<List<String>>> fetchNotification(String email) async{
+    late Results result;
+    try {
+      result = await _connection.query(
+        'select orderId, serviceID ,subservice from orderList where orderId in (select notifications.orderId from notifications , tags where tags.email = ? and notifications.tag = tags.tag)',
+        [email],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      result = await _connection.query(
+        'select orderId, serviceID ,subservice from orderList where orderId in (select notifications.orderId from notifications , tags where tags.email = ? and notifications.tag = tags.tag)',
+        [email],
+      );
+    }
+    int count = 0;
+    for (var x in result){
+      count = count+1;
+    }
+    print(count);
+    // orderid , serviceId , subservice , servicename , price , address
+    List<List<String>> notify = [];
+    for (int i = 0; i < count; i++) {
+      List<String> temp = [];
+      String orderId = result.elementAt(i).values![0].toString();
+      temp.add(orderId); // orderid
+      String serviceId = result.elementAt(i).values![1].toString();
+      temp.add(serviceId); // serviceID
+      String subservice = result.elementAt(i).values![2].toString();
+      temp.add(subservice); //subservice
+      String servicename = "";
+      String price = "";
+      String address = "";
+      late Results result2;
+      late Results result3;
+      try {
+        result2 = await _connection.query(
+          'select servicename, price from subservice where serviceId = ? AND subservice = ?',
+          [serviceId,subservice],
+        );
+      } catch (e) {
+        print(e);
+        print("reinit database");
+        await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
+        result2 = await _connection.query(
+          'select servicename, price from subservice where serviceId = ? AND subservice = ?',
+          [serviceId,subservice],
+        );
+      }
+      servicename = result2.elementAt(0).values![0].toString();
+      price = result2.elementAt(0).values![1].toString();
+      try {
+        result3 = await _connection.query(
+          'select address from consumer where email in (select consumerEmail from orderList where orderId = ?)',
+          [orderId],
+        );
+      } catch (e) {
+        print(e);
+        print("reinit database");
+        await databaseManager.initialize();
+        _connection = DatabaseManager().connection;
+        result3 = await _connection.query(
+          'select address from consumer where email in (select consumerEmail from orderList where orderId = ?)',
+          [orderId],
+        );
+      }
+      address = result3.elementAt(0).values![0].toString();
+      temp.add(servicename);
+      temp.add(price);
+      temp.add(address);
+      notify.add(temp);
+      print(temp);
+    }
+    print(notify);
+    return notify;
+  }
+
+  Future<void> acceptJob(String email , String orderId) async {
+    try {
+      await _connection.query(
+        'delete from notifications where orderId = ?',
+        [orderId],
+      );
+      try{
+        if(email != null && orderId != null){
+          await _connection.query(
+            'UPDATE orderList SET servicemenEmail = ? , orderStatus = ?,servicemenEmail = ?  WHERE orderId = ?',
+            [email,"in progress",orderId,email],
+          );
+        }
+      }
+      catch (e){
+        print(e);
+        print("reinit database");
+        await databaseManager.initialize();
+        if(email != null && orderId != null){
+          await _connection.query(
+            'UPDATE orderList SET servicemenEmail = ? , orderStatus = ?,servicemenEmail = ?  WHERE orderId = ?',
+            [email,"in progress",orderId,email],
+          );
+        }
+      }
+    }
+    catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      await _connection.query(
+        'delete from notifications where orderId = ?',
+        [orderId],
+      );
+      try{
+        if(email != null && orderId != null){
+          await _connection.query(
+            'UPDATE orderList SET servicemenEmail = ? , orderStatus = ?,servicemenEmail = ?  WHERE orderId = ?',
+            [email,"in progress",orderId,email],
+          );
+        }
+      }
+      catch (e){
+        print(e);
+        print("reinit database");
+        await databaseManager.initialize();
+        if(email != null && orderId != null){
+          await _connection.query(
+            'UPDATE orderList SET servicemenEmail = ? , orderStatus = ?,servicemenEmail = ?  WHERE orderId = ?',
+            [email,"in progress",orderId,email],
+          );
+        }
+      }
+    }
   }
 }

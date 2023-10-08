@@ -29,6 +29,13 @@ class _SignUpState extends State<SignUp> {
 
   bool visiblePassword = false;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    visiblePassword = false;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/consumer/profile/profile.dart';
 import 'package:localpros/pages/servicemen/notificatons.dart';
+import 'package:localpros/pages/servicemen/profile_servicemen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -182,7 +183,7 @@ class _ServiceMenState extends State<ServiceMen> {
           child: _currentIndex == 0
               ? Notifications()
               : Container(
-                  child: Profile(),
+                  child: ProfileServicemen(),
                 ),
         ),
       ),
