@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/database/database_service.dart';
 import 'package:localpros/navigation.dart';
+import 'package:localpros/pages/consumer/orders/orderCompleted.dart';
 import 'package:localpros/pages/servicemen/edit_servicemen_details.dart';
 import 'package:localpros/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,25 +92,30 @@ class _ProfileState extends State<Profile> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Card(
-                        color: Colors.white70,
-                        margin: const EdgeInsets.only(
-                            left: 35, right: 35, bottom: 10),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const ListTile(
-                          leading: Icon(
-                            Icons.history,
-                            color: Colors.black54,
-                          ),
-                          title: Text(
-                            'Purchase History',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black54,
+                      GestureDetector(
+                        onTap: () {
+                          nextScreen(context, OrderCompeleted());
+                        },
+                        child: Card(
+                          color: Colors.white70,
+                          margin: const EdgeInsets.only(
+                              left: 35, right: 35, bottom: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          child: const ListTile(
+                            leading: Icon(
+                              Icons.history,
+                              color: Colors.black54,
+                            ),
+                            title: Text(
+                              'Purchase History',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: Colors.black54,
+                            ),
                           ),
                         ),
                       ),

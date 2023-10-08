@@ -373,7 +373,6 @@ class DatabaseService {
     return tags;
   }
 
-
   Future<Results> SearchService(String servicename) async {
     late Results result;
 
@@ -395,16 +394,15 @@ class DatabaseService {
     return result;
   }
 
-  Future<bool> addToCart(String email,String serviceId , String subserviceId) async {
+  Future<bool> addToCart(
+      String email, String serviceId, String subserviceId) async {
     try {
-       await _connection.query(
-         'insert into cart (consumerEmail ,serviceId , subservice) values (?,?,?) ',
-         [email,serviceId,subserviceId],
-
+      await _connection.query(
+        'insert into cart (consumerEmail ,serviceId , subservice) values (?,?,?) ',
+        [email, serviceId, subserviceId],
       );
-       return true;
+      return true;
     } catch (e) {
-
       print(e);
       print("reinit database");
       await databaseManager.initialize();
@@ -412,13 +410,11 @@ class DatabaseService {
 
       await _connection.query(
         'insert into cart (consumerEmail ,serviceId , subservice) values (?,?,?) ',
-        [email,serviceId,subserviceId],
-
+        [email, serviceId, subserviceId],
       );
       return false;
     }
   }
-
 
   Future<List<Results>> fetchCart(String email) async {
     late Results result;
@@ -441,25 +437,24 @@ class DatabaseService {
       );
     }
 
-
-   List<Results> resultList = [];
-   for(int i = 0 ; i < result.length ;i++) {
-     serviceID = result.elementAt(i).values![0].toString();
-     subservice = result.elementAt(i).values![1].toString();
-     resultList.add(await fetchServiceDetails(serviceID, subservice));
-   }
+    List<Results> resultList = [];
+    for (int i = 0; i < result.length; i++) {
+      serviceID = result.elementAt(i).values![0].toString();
+      subservice = result.elementAt(i).values![1].toString();
+      resultList.add(await fetchServiceDetails(serviceID, subservice));
+    }
 
     return resultList;
   }
 
-
-  Future<Results> fetchServiceDetails(String serviceID,String subservice) async {
+  Future<Results> fetchServiceDetails(
+      String serviceID, String subservice) async {
     late Results results;
 
     try {
       results = await _connection.query(
         'select servicename,description,price,serviceId,subservice from subservice where ( serviceId = ? ) AND ( subservice = ? )',
-        [serviceID,subservice],
+        [serviceID, subservice],
       );
     } catch (e) {
       print(e);
@@ -468,20 +463,21 @@ class DatabaseService {
       _connection = DatabaseManager().connection;
       results = await _connection.query(
         'select servicename,description,price,serviceId,subservice  from subservice where ( serviceId = ? ) AND ( subservice = ? )',
-        [serviceID,subservice],
+        [serviceID, subservice],
       );
     }
 
     return results;
   }
 
-  Future<bool> deleteCart(String email,String serviceID,String subserviceId) async {
+  Future<bool> deleteCart(
+      String email, String serviceID, String subserviceId) async {
     late Results results;
 
     try {
       results = await _connection.query(
         'delete from cart where ( serviceId = ? ) AND ( subservice = ? ) AND ( consumerEmail = ?) ',
-        [serviceID,subserviceId,email],
+        [serviceID, subserviceId, email],
       );
     } catch (e) {
       print(e);
@@ -490,13 +486,94 @@ class DatabaseService {
       _connection = DatabaseManager().connection;
       results = await _connection.query(
         'delete from cart where ( serviceId = ? ) AND ( subservice = ? ) AND ( consumerEmail = ?) ',
-        [serviceID,subserviceId,email],
+        [serviceID, subserviceId, email],
       );
     }
 
     return results.affectedRows == 0 ? false : true;
   }
 
+  Future<bool> addToOrders(
+    String consumerEmail,
+    String bookingDate,
+    String serviceId,
+    String subservice,
+  ) async {
+    late Results results;
 
+    // we are only having three status - pending - in progress - completed.
+    // After completion there will be the review time if needed.
 
+    try {
+      results = await _connection.query(
+        'insert into orderList (serviceId,subservice,orderStatus,bookingDate,servicemenEmail,consumerEmail) values (?,?,?,?,?,?) ',
+        [serviceId, subservice, "pending", bookingDate, "", consumerEmail],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      results = await _connection.query(
+        'insert into orderList (serviceId,subservice,orderStatus,bookingDate,servicemenEmail,consumerEmail) values (?,?,?,?,?,?) ',
+        [serviceId, subservice, "pending", bookingDate, "", consumerEmail],
+      );
+    }
+
+    return results.affectedRows == 0 ? false : true;
+  }
+
+  Future<Map<ResultRow, Results>> fetchOrders(
+      String email, String status) async {
+    late Results result;
+    late String serviceID;
+    late String subservice;
+
+    try {
+      result = await _connection.query(
+        'select serviceId,subservice,orderStatus,bookingDate,servicemenEmail from orderList where consumerEmail  = ? and (orderStatus = ? or orderStatus = ?)',
+        [email, status.split("|").first, status.split("|")[1]],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      result = await _connection.query(
+        'select serviceId,subservice,orderStatus,bookingDate,servicemenEmail from orderList where consumerEmail  = ? and orderStatus = ?',
+        [email, status],
+      );
+    }
+
+    Map<ResultRow, Results> map = {};
+    for (int i = 0; i < result.length; i++) {
+      serviceID = result.elementAt(i).values![0].toString();
+      subservice = result.elementAt(i).values![1].toString();
+      Results r = await fetchServiceDetails(serviceID, subservice);
+      map.putIfAbsent(result.elementAt(i), () => r);
+    }
+
+    return map;
+  }
+
+  Future<String> fetchServicemenName(String email) async {
+    late Results results;
+
+    try {
+      results = await _connection.query(
+        'select name from servicemen where email = ?',
+        [email],
+      );
+    } catch (e) {
+      print(e);
+      print("reinit database");
+      await databaseManager.initialize();
+      _connection = DatabaseManager().connection;
+      results = await _connection.query(
+        'select name from servicemen where email = ?',
+        [email],
+      );
+    }
+    return results.first.values![0].toString();
+  }
 }

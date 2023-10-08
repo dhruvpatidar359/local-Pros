@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localpros/navigation.dart';
 import 'package:localpros/pages/consumer/cart/cart.dart';
+import 'package:localpros/pages/consumer/orders/order.dart';
 import 'package:localpros/pages/consumer/services/service_list.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -50,6 +51,14 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                nextScreen(context, Orders());
+              },
+              tooltip: "Orders",
+              icon: Icon(Icons.shopping_cart_checkout_rounded))
+        ],
         backgroundColor: Colors.blue.shade300,
         title: _currentIndex == 0
             ? Text(
