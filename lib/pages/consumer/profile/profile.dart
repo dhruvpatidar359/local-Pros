@@ -179,7 +179,10 @@ class _ProfileState extends State<Profile> {
                         height: 10,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          // Set the app link and the message to be shared
+                          // Share.share("Share this please");
+                        },
                         child: Card(
                           color: Colors.white70,
                           margin: const EdgeInsets.only(

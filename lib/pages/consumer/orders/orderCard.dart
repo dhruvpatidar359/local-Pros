@@ -30,9 +30,10 @@ class _OrderCardState extends State<OrderCard> {
 
   Future<void> getServicemen() async {
     if (widget.servicemen != "NIL") {
-      setState(() async {
-        widget.servicemen =
-            await databaseService.fetchServicemenName(widget.servicemen);
+      String name =
+          await databaseService.fetchServicemenName(widget.servicemen);
+      setState(() {
+        widget.servicemen = name;
       });
     }
   }
