@@ -27,13 +27,13 @@ class _SignUpState extends State<SignUp> {
 
   TextEditingController _nameController = TextEditingController();
 
-  bool visiblePassword = false;
+  bool visiblePassword = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    visiblePassword = false;
+    visiblePassword = true;
   }
 
   Widget build(BuildContext context) {

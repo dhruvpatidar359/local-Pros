@@ -25,13 +25,13 @@ class _LoginPageState extends State<LoginPage> {
 
   bool isSwitched = false;
   DatabaseService databaseService = DatabaseService();
-  bool passwordVisible = false;
+  bool passwordVisible = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    passwordVisible = false;
+    passwordVisible = true;
   }
 
   @override

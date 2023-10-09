@@ -79,7 +79,7 @@ class _ServiceMenState extends State<ServiceMen> {
             SalomonBottomBarItem(
               icon: Icon(Icons.person),
               title: Text("Profile"),
-              selectedColor: Colors.teal,
+              selectedColor: Colors.blue,
             ),
           ],
         ),
